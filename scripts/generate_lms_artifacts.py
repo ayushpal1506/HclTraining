@@ -11,7 +11,12 @@ import glob
 import subprocess
 from pathlib import Path
 from docx import Document
+from docx.text.paragraph import Paragraph as DocxParagraph
+from docx.table import Table as DocxTable
+from docx.oxml.text.paragraph import CT_P
+from docx.oxml.table import CT_Tbl
 from openpyxl import load_workbook
+from pypdf import PdfWriter
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, A4
@@ -158,46 +163,40 @@ def convert_docx_to_pdf(docx_path: Path, pdf_path: Path):
     styles = get_styles()
     story = []
 
-    # Title Banner
-    base_name = docx_path.stem.replace('_', ' ')
-    story.append(Paragraph(base_name, styles['DocTitle']))
-    story.append(Paragraph("ABES Engineering College · HCLTech Career Shaper Programme", styles['DocSubTitle']))
-    story.append(Spacer(1, 10))
-
     usable_width = 8.5 * inch - 108
 
     for element in doc.element.body:
-        tag = element.tag.split('}')[-1]
-        if tag == 'p':
-            text = "".join(element.itertext()).strip()
+        if isinstance(element, CT_P):
+            p = DocxParagraph(element, doc)
+            text = p.text.strip()
             if not text:
                 story.append(Spacer(1, 4))
                 continue
-            # Check style
-            p_style = element.xpath('.//w:pStyle/@w:val')
-            style_name = p_style[0] if p_style else ""
+
+            style_name = p.style.name if p.style else ""
+            clean = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
             if "Heading 1" in style_name or "Heading1" in style_name:
-                story.append(Paragraph(text, styles['Heading1_Custom']))
+                story.append(Paragraph(clean, styles['Heading1_Custom']))
             elif "Heading 2" in style_name or "Heading2" in style_name:
-                story.append(Paragraph(text, styles['Heading2_Custom']))
+                story.append(Paragraph(clean, styles['Heading2_Custom']))
             elif text.startswith("# "):
-                story.append(Paragraph(text[2:], styles['Heading1_Custom']))
+                story.append(Paragraph(clean[2:], styles['Heading1_Custom']))
             elif text.startswith("## "):
-                story.append(Paragraph(text[3:], styles['Heading2_Custom']))
+                story.append(Paragraph(clean[3:], styles['Heading2_Custom']))
+            elif "Title" in style_name:
+                story.append(Paragraph(clean, styles['DocTitle']))
+            elif "Subtitle" in style_name:
+                story.append(Paragraph(clean, styles['DocSubTitle']))
             else:
-                # Escape html chars
-                clean = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
                 story.append(Paragraph(clean, styles['Body_Custom']))
 
-        elif tag == 'tbl':
-            # Extract table
+        elif isinstance(element, CT_Tbl):
+            tbl = DocxTable(element, doc)
             rows_data = []
-            for row in element.findall('.//{http://schemas.openxmlformats.org/wordprocessingml/2006/main}tr'):
-                row_cells = []
-                for cell in row.findall('.//{http://schemas.openxmlformats.org/wordprocessingml/2006/main}tc'):
-                    cell_text = "".join(cell.itertext()).strip()
-                    row_cells.append(cell_text)
-                if row_cells:
+            for row in tbl.rows:
+                row_cells = [cell.text.strip() for cell in row.cells]
+                if any(c for c in row_cells):
                     rows_data.append(row_cells)
 
             if rows_data:
@@ -207,12 +206,10 @@ def convert_docx_to_pdf(docx_path: Path, pdf_path: Path):
 
                 table_data = []
                 for r_idx, row in enumerate(rows_data):
-                    # Pad if needed
                     while len(row) < num_cols:
                         row.append("")
                     row_p = []
                     for val in row:
-                        # Truncate overly long text in a single cell to prevent ReportLab LayoutError
                         clean = val.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
                         if len(clean) > 500:
                             clean = clean[:497] + "..."
@@ -511,11 +508,41 @@ def main():
             out_pdf = PDFS_DIR / f"{sf.stem}.pdf"
             convert_xlsx_to_pdf(sf, out_pdf)
 
-    # 6. Project ZIP archive
+    # 6. Merge all 16 step PDFs into 5_Project_Documents_All_Steps.pdf
+    sub_dir = ROOT / "submission_project_folder"
+    sub_dir.mkdir(exist_ok=True)
+    
+    writer = PdfWriter()
+    step_pdfs = sorted(PDFS_DIR.glob("*.pdf"))
+    all_to_merge = list(step_pdfs)
+    if proj_doc_pdf.exists():
+        all_to_merge.append(proj_doc_pdf)
+
+    print(f"Merging {len(all_to_merge)} PDFs into submission_project_folder/5_Project_Documents_All_Steps.pdf:")
+    for p in all_to_merge:
+        title = p.stem.replace('_', ' ')
+        writer.append(str(p), outline_item=title)
+
+    merged_out = sub_dir / "5_Project_Documents_All_Steps.pdf"
+    with open(merged_out, "wb") as f:
+        writer.write(f)
+    writer.close()
+    print(f"Built Merged PDF: {merged_out.name} ({merged_out.stat().st_size} bytes)")
+
+    # Copy files to submission_project_folder
+    import shutil
+    shutil.copy(proj_doc_pdf, sub_dir / "1_Project_Document.pdf")
+    shutil.copy(DOCS_DIR / "HKD-2026_Presentation.pdf", sub_dir / "2_Project_Presentation.pdf")
+    shutil.copy(DOCS_DIR / "HKD-2026_Presentation.pptx", sub_dir / "2_Project_Presentation.pptx")
+    shutil.copy(github_report_pdf, sub_dir / "3_GitHub_Report.pdf")
+    shutil.copy(complete_code_pdf, sub_dir / "4_Complete_Code.pdf")
+
+    # 7. Project ZIP archive
     zip_path = ROOT / "HKD-2026_Ayush_Pal_Submission.zip"
     create_submission_zip(zip_path)
+    shutil.copy(zip_path, sub_dir / "6_Project_ZIP_File.zip")
 
-    print("=== All 6 LMS deliverables successfully generated! ===")
+    print("=== All 6 LMS deliverables successfully generated & synced! ===")
 
 
 if __name__ == "__main__":
