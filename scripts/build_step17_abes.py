@@ -421,7 +421,7 @@ def generate_document():
         ["Domain", "Data Analytics & Clinical Operations"],
         ["Programme / Batch", "MCA 2nd Year Data Analyst - ABES_OND26_MCA Batch 01"],
         ["Learner(s) & Roll No(s)", "Ayush Pal (Roll: 2503201450035)"],
-        ["Mentor", "Prof. Alpana Lodhi"],
+        ["Mentor", "Prof. Kalpana Dwevedi"],
         ["GitHub repository", "https://github.com/ayushpal/hclTraining"],
         ["Live app (Streamlit)", "https://2503201450035-hkd-2026.streamlit.app"],
         ["Version & date", "v1.0 - 19/11/2026"],
@@ -870,7 +870,7 @@ CREATE TABLE fact_opd_visit (
     prefs_code = """PROJECT ID & TITLE: HKD-2026 | Healthcare KPI Dashboard
 DOMAIN: Data Analytics & Clinical Operations
 LEARNER(S) & ROLL NO(S): Ayush Pal, Roll 2503201450035, MCA 2nd yr DA, ABES
-MENTOR: Prof. Alpana Lodhi
+MENTOR: Prof. Kalpana Dwevedi
 BATCH: ABES_OND26_MCA Batch 01
 INTENDED USERS: Hospital CEO, Operations Director, Medical Superintendent, Clinical Quality Head, CFO
 PROBLEM IN MY WORDS: Hospital leadership lacks unified, low-latency visibility across acute bed occupancy bottlenecks, ALOS delays, 30-day readmissions, and specialty revenue yield.
@@ -885,7 +885,7 @@ TEAM SIZE & DEADLINE: Individual project (Ayush Pal), November 2026 final submis
     kickoff_code = """You are my senior Business Analyst, Solution Architect, Python data analyst and QA mentor. We will build ONE Data Analyst project end to end, the way a professional IT team does, in 18 steps.
 
 PROJECT: HKD-2026 | DOMAIN: Data Analytics
-ME: Ayush Pal, Roll 2503201450035, MCA 2nd yr DA, ABES | MENTOR: Prof. Alpana Lodhi
+ME: Ayush Pal, Roll 2503201450035, MCA 2nd yr DA, ABES | MENTOR: Prof. Kalpana Dwevedi
 PRODUCT: Python + Streamlit app (EDA, statistics, Plotly charts, Tailwind UI), SQLite data, pytest tests, on Streamlit Community Cloud.
 FINAL SUBMISSION: Project Document (ABES Word template) + ABES slide deck.
 

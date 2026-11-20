@@ -325,7 +325,7 @@ def build_all():
     s1 = prs.slides.add_slide(prs.slide_layouts[6])
     build_dark_slide(s1, "HKD-2026 - Healthcare KPI Dashboard", [
         "Ayush Pal | Roll No 2503201450035 / MCA 2nd Year Data Analyst",
-        "Mentor: Prof. Alpana Lodhi"
+        "Mentor: Prof. Kalpana Dwevedi"
     ], pink_line="19 November 2026")
     set_speaker_notes(s1, "Good morning mentors and evaluators. I am Ayush Pal, presenting project HKD-2026, the Healthcare KPI Dashboard.")
 
@@ -594,7 +594,7 @@ def render_all_slides():
     d1.text((80, 56), "[ABES logo]", fill=RGB_PINK, font=FONT_HELVETICA_12)
     d1.text((700, 56), "HCLTech Career Shaper Programme | ABES Engineering College, Ghaziabad", fill=RGB_PINK, font=FONT_HELVETICA_BOLD_12)
     d1.text((80, 248), "HKD-2026 - Healthcare KPI Dashboard", fill=RGB_WHITE, font=FONT_GEORGIA_36)
-    d1.text((80, 480), "Ayush Pal | Roll No 2503201450035 / MCA 2nd Year Data Analyst\nMentor: Prof. Alpana Lodhi", fill=RGB_CARD, font=FONT_HELVETICA_BOLD_15, spacing=10)
+    d1.text((80, 480), "Ayush Pal | Roll No 2503201450035 / MCA 2nd Year Data Analyst\nMentor: Prof. Kalpana Dwevedi", fill=RGB_CARD, font=FONT_HELVETICA_BOLD_15, spacing=10)
     d1.text((80, 560), "19 November 2026", fill=RGB_PINK, font=FONT_HELVETICA_13)
     im1.save(IMG_DIR / "slide_01.png")
 

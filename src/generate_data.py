@@ -773,7 +773,7 @@ ws.column_dimensions["B"].width = 105
 rows = [
     ("Project", "HKD-2026 | Healthcare KPI Dashboard | Data Analytics"),
     ("Student", "Ayush Pal · Roll 2503201450035 · MCA 2nd year (DA), ABES Engineering College"),
-    ("Mentor", "Aplana Lodhi"),
+    ("Mentor", "Kalpana Dwevedi"),
     ("Step", "10 — Dataset generation"),
     ("Seed", "42 (every run reproduces this dataset exactly)"),
     ("Period", "2023-01-01 to 2025-12-31 (1,096 days)"),

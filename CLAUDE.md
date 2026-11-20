@@ -4,7 +4,7 @@
 - PROJECT ID & TITLE: HKD-2026 | Healthcare KPI Dashboard
 - DOMAIN: Data Analytics
 - STUDENT: Ayush Pal, Roll 2503201450035, MCA 2nd yr DA, ABES
-- MENTOR: Aplana Lodhi
+- MENTOR: Kalpana Dwevedi
 - PRODUCT: Python + Streamlit app (EDA, statistics, Plotly charts, Tailwind UI), SQLite data, pytest tests, deployed on Streamlit Community Cloud
 - FINAL SUBMISSION: Project Document (ABES Word template) + ABES slide deck
 

@@ -37,7 +37,7 @@ PROJECT_ID = "HKD-2026"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
 ROLL = "2503201450035"
-MENTOR = "Aplana Lodhi"
+MENTOR = "Kalpana Dwevedi"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")

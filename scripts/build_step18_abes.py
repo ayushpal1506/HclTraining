@@ -365,14 +365,14 @@ def build_presentation():
         title_text="HKD-2026 - Healthcare KPI Dashboard",
         lines_list=[
             "Ayush Pal | Roll No 2503201450035 / MCA 2nd Year Data Analyst",
-            "Mentor: Prof. Alpana Lodhi",
+            "Mentor: Prof. Kalpana Dwevedi",
         ],
         pink_line="19 November 2026",
     )
     set_speaker_notes(
         s1,
         "Good morning mentors and evaluators. I am Ayush Pal, Roll 2503201450035, MCA 2nd Year Data Analyst. "
-        "Today I present project HKD-2026, the Healthcare KPI Dashboard, built under the guidance of Prof. Alpana Lodhi. "
+        "Today I present project HKD-2026, the Healthcare KPI Dashboard, built under the guidance of Prof. Kalpana Dwevedi. "
         "This enterprise operational analytics platform gives hospital leadership unified, real-time visibility into acute "
         "bed occupancy bottlenecks, length of stay adherence, readmissions, and specialty revenue yield."
     )
@@ -447,7 +447,7 @@ def build_presentation():
         "Our user research identified three pivotal stakeholders. Our primary user is the Operations Director, who "
         "needs daily bed census tracking to avoid hospital gridlock. Our secondary user is the Clinical Quality Head, who "
         "monitors 30-day readmissions and mortality drift to trigger clinical audits. Finally, our mentor and evaluator, "
-        "Prof. Alpana Lodhi, ensures architectural soundness, schema integrity, and end-to-end requirement traceability."
+        "Prof. Kalpana Dwevedi, ensures architectural soundness, schema integrity, and end-to-end requirement traceability."
     )
 
     # =========================================================================

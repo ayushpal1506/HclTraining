@@ -3,7 +3,7 @@
 > **Project:** Healthcare KPI Dashboard (`HKD-2026`)  
 > **Domain:** Clinical & Operational Data Analytics  
 > **Student:** Ayush Pal (Roll: 2503201450035, MCA 2nd yr DA, ABES)  
-> **Mentor:** Prof. Aplana Lodhi  
+> **Mentor:** Prof. Kalpana Dwevedi  
 > **Target Stack:** Python 3.12+, Streamlit, Plotly, Tailwind CSS (iframe), SQLite (`data/app.db`), pytest  
 
 ---
