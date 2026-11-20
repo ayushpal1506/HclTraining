@@ -10,6 +10,7 @@ __pycache__/
 .coverage
 htmlcov/
 *.log
+*.zip
 
 # Explicitly ensure SQLite warehouse and data dictionary are tracked for deployment
 !data/app.db
