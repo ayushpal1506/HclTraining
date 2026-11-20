@@ -1,0 +1,73 @@
+%%{init: {"theme": "default", "themeVariables": {"fontSize": "11px", "fontFamily": "Helvetica"}, "er": {"layoutDirection": "TB", "diagramPadding": 10, "entityPadding": 8}}}%%
+erDiagram
+  DIM_DEPARTMENT ||--o{ DIM_WARD : "owns"
+  DIM_DEPARTMENT ||--o{ FACT_INPATIENT_EPISODE : "treats"
+  DIM_DEPARTMENT ||--o{ FACT_OPD_VISIT : "serves"
+  DIM_WARD ||--o{ FACT_INPATIENT_EPISODE : "houses"
+  DIM_PAYER ||--o{ FACT_INPATIENT_EPISODE : "settles"
+  DIM_PAYER ||--o{ FACT_OPD_VISIT : "covers"
+  FACT_INPATIENT_EPISODE ||--o{ FACT_INPATIENT_EPISODE : "is index for"
+
+  DIM_DEPARTMENT {
+    TEXT department_id PK "DEP01..DEP08"
+    TEXT department_name UK
+    TEXT specialty
+    TEXT floor_block "Block A..D"
+    INTEGER is_active "0 or 1"
+    TEXT effective_from "ISO date"
+  }
+
+  DIM_WARD {
+    TEXT ward_id PK "W01..W20"
+    TEXT ward_name UK
+    TEXT ward_type "General..Day-care"
+    TEXT bed_class "Economy..Intensive"
+    TEXT department_id FK
+    INTEGER functional_beds "1-60"
+    INTEGER is_active "0 or 1"
+    TEXT effective_from "ISO date"
+    TEXT effective_to "NULL means current"
+  }
+
+  DIM_PAYER {
+    TEXT payer_id PK "P01..P05"
+    TEXT payer_name UK
+    TEXT payer_category "5-value list"
+    INTEGER settlement_days "0-180"
+    INTEGER is_active "0 or 1"
+  }
+
+  FACT_INPATIENT_EPISODE {
+    INTEGER episode_id PK
+    TEXT patient_key "12-char pseudonym"
+    TEXT department_id FK
+    TEXT ward_id FK
+    TEXT payer_id FK
+    TEXT admission_date "ISO date"
+    TEXT discharge_date "ISO date"
+    INTEGER los_days "1..120"
+    TEXT discharge_type "Routine..Expired"
+    INTEGER death_flag "0 or 1"
+    INTEGER readmit_30d_flag "0 or 1"
+    INTEGER index_episode_id FK "self reference"
+    TEXT diagnosis_group "20 clinical groups"
+    INTEGER is_planned_procedure "0 or 1"
+    TEXT age_band "6 bands"
+    TEXT gender "M F O"
+    REAL billed_amount "INR gross"
+    INTEGER bed_days "equals los_days"
+    TEXT created_at "ISO timestamp"
+  }
+
+  FACT_OPD_VISIT {
+    INTEGER visit_id PK
+    TEXT patient_key "12-char pseudonym"
+    TEXT visit_date "ISO date"
+    TEXT department_id FK
+    TEXT payer_id FK
+    TEXT age_band "6 bands"
+    TEXT gender "M F O"
+    TEXT visit_type "New or Follow-up"
+    REAL consultation_fee "INR"
+    TEXT created_at "ISO timestamp"
+  }

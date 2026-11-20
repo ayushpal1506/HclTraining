@@ -1,0 +1,20 @@
+# HKD-2026 Git Ignore Rules
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+**/.DS_Store
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Explicitly ensure SQLite warehouse and data dictionary are tracked for deployment
+!data/app.db
+!data/hkd2026_data.xlsx
+!data/quality_log.csv
+!data/validation_summary.json
+!data/test_results.json
+!data/healthcare_eda_dataset.csv

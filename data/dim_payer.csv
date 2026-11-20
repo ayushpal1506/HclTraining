@@ -1,0 +1,6 @@
+payer_id,payer_name,payer_category,settlement_days,is_active
+P01,Self-pay,Cash,0,1
+P02,Swaasthya Shield,Private insurance,21,1
+P03,Sahyog TPA,TPA,45,1
+P04,Rajya Swasthya Yojana,Government scheme,60,1
+P05,Nirmaan Corporate Health,Corporate,30,1

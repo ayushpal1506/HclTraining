@@ -1,0 +1,9 @@
+department_id,department_name,specialty,floor_block,is_active,effective_from
+DEP01,Cardiology,Cardiac sciences,Block A,1,2023-01-01
+DEP02,General Medicine,Internal medicine,Block B,1,2023-01-01
+DEP03,Orthopaedics,Orthopaedic surgery,Block C,1,2023-01-01
+DEP04,Paediatrics,Child health,Block B,1,2023-01-01
+DEP05,Maternity,Obstetrics and gynaecology,Block C,1,2023-01-01
+DEP06,Oncology,Medical oncology,Block D,1,2023-01-01
+DEP07,Emergency,Emergency medicine,Block A,1,2023-01-01
+DEP08,ENT,Otorhinolaryngology,Block D,1,2023-01-01

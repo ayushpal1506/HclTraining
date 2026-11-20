@@ -1,0 +1,317 @@
+{
+  "seed": 42,
+  "period": [
+    "2023-01-01",
+    "2025-12-31"
+  ],
+  "days": 1096,
+  "tables": {
+    "dim_department": 8,
+    "dim_ward": 20,
+    "dim_payer": 5,
+    "fact_inpatient_episode": 53915,
+    "fact_opd_visit": 143139
+  },
+  "raw_counts": {
+    "dim_department": 8,
+    "dim_ward": 20,
+    "dim_payer": 5,
+    "fact_inpatient_episode": 56094,
+    "fact_opd_visit": 146328
+  },
+  "rejected": {
+    "fact_inpatient_episode": 2179,
+    "fact_opd_visit": 3189
+  },
+  "total_rejected": 5368,
+  "outlier_flags": 159,
+  "issues": [
+    {
+      "table": "fact_inpatient_episode",
+      "issue": "missing payer_id",
+      "rows": 970,
+      "pct": 1.8,
+      "action": "rejected"
+    },
+    {
+      "table": "fact_inpatient_episode",
+      "issue": "missing billed_amount",
+      "rows": 377,
+      "pct": 0.7,
+      "action": "rejected"
+    },
+    {
+      "table": "fact_inpatient_episode",
+      "issue": "duplicate episode row",
+      "rows": 646,
+      "pct": 1.2,
+      "action": "removed (duplicate)"
+    },
+    {
+      "table": "fact_inpatient_episode",
+      "issue": "negative length of stay",
+      "rows": 64,
+      "pct": 0.12,
+      "action": "rejected"
+    },
+    {
+      "table": "fact_inpatient_episode",
+      "issue": "discharge before admission",
+      "rows": 53,
+      "pct": 0.1,
+      "action": "rejected"
+    },
+    {
+      "table": "fact_inpatient_episode",
+      "issue": "unknown department (orphan FK)",
+      "rows": 43,
+      "pct": 0.08,
+      "action": "rejected"
+    },
+    {
+      "table": "fact_inpatient_episode",
+      "issue": "invalid gender code",
+      "rows": 26,
+      "pct": 0.05,
+      "action": "rejected"
+    },
+    {
+      "table": "fact_opd_visit",
+      "issue": "missing payer_id",
+      "rows": 2147,
+      "pct": 1.5,
+      "action": "rejected"
+    },
+    {
+      "table": "fact_opd_visit",
+      "issue": "duplicate visit row",
+      "rows": 859,
+      "pct": 0.6,
+      "action": "removed (duplicate)"
+    },
+    {
+      "table": "fact_opd_visit",
+      "issue": "zero consultation fee",
+      "rows": 143,
+      "pct": 0.1,
+      "action": "rejected"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P-01",
+      "name": "Winter respiratory surge",
+      "evidence": "GenMed + Paediatrics + ENT admit 76.7 patients a day in Nov\u2013Feb against 60.1 in Mar\u2013Oct, a 28% winter lift.",
+      "supports": "OQ-02, OQ-06, BR-09"
+    },
+    {
+      "id": "P-02",
+      "name": "Cardiology capacity pressure",
+      "evidence": "Cardiology BOR 85.7% vs the 85% target; ALOS 5.43 days, the longest of the eight departments. Orthopaedics runs at 67.8%.",
+      "supports": "OQ-01, OQ-03, BR-01, BR-06"
+    },
+    {
+      "id": "P-03",
+      "name": "Readmission hotspots",
+      "evidence": "General Medicine 8.47%, Oncology 6.34%, Cardiology 5.78% against Orthopaedics 2.61% and Maternity 2.62%. Short stays (\u22643 days) readmit at 7.08% vs 3.57% for stays of 8+ days.",
+      "supports": "OQ-04, OQ-07, BR-07, BR-10"
+    },
+    {
+      "id": "P-04",
+      "name": "Payer-mix shift and revenue per bed-day",
+      "evidence": "Corporate share 6.37% in 2023 \u2192 11.23% in 2025 while self-pay falls 41.35% \u2192 33.49%. Revenue per bed-day: Oncology \u20b930,840, Orthopaedics \u20b921,809, General Medicine \u20b910,614.",
+      "supports": "OQ-05, OQ-09, BR-08, BR-12"
+    },
+    {
+      "id": "P-05",
+      "name": "Oncology mortality drift and the Monday OPD peak",
+      "evidence": "Oncology mortality rises from 3.52% (2023) to 5.62% (2025); the last half-year reads 6.0%. OPD peak-to-average ratio 1.53 (Monday busiest, Sunday near-closed).",
+      "supports": "OQ-06, OQ-10, BR-09, BR-13"
+    }
+  ],
+  "checks": [
+    [
+      "Row counts reconcile",
+      "clean + rejected + removed = raw",
+      "197,087 + 5,368 = 202,455",
+      "PASS"
+    ],
+    [
+      "Primary keys unique",
+      "0 duplicates",
+      "0 duplicate (patient, admission)",
+      "PASS"
+    ],
+    [
+      "Foreign keys",
+      "PRAGMA foreign_key_check returns no rows",
+      "0 violation(s)",
+      "PASS"
+    ],
+    [
+      "Load errors",
+      "0 rows rejected by the DDL",
+      "0 row(s)",
+      "PASS"
+    ],
+    [
+      "Longest stay in range",
+      "1 \u2264 los \u2264 120",
+      "1\u201390 days",
+      "PASS"
+    ],
+    [
+      "Billing non-negative",
+      "billed_amount \u2265 0",
+      "\u20b95,788 \u2013 \u20b96,056,692",
+      "PASS"
+    ],
+    [
+      "Dates inside the window",
+      "2023-01-01 \u2026 2025-12-31",
+      "2023-01-01 \u2026 2025-12-31",
+      "PASS"
+    ],
+    [
+      "Occupancy cannot exceed 100%",
+      "max ward-day BOR \u2264 100",
+      "100.0% (ward-day), 92.72% (dept-month)",
+      "PASS"
+    ],
+    [
+      "Bed-days reconcile",
+      "\u03a3 bed_days = \u03a3 ward-day occupancy",
+      "237,549 = 237,549",
+      "PASS"
+    ],
+    [
+      "Analysis view width",
+      "36 columns",
+      "36 columns",
+      "PASS"
+    ],
+    [
+      "No dangling readmission links",
+      "every index_episode_id resolves",
+      "3176 links checked",
+      "PASS"
+    ],
+    [
+      "No real personal data",
+      "no name/phone/address columns",
+      "schema stores pseudonymous keys only",
+      "PASS"
+    ]
+  ],
+  "dos": [
+    "2023-01-01",
+    "2025-12-31"
+  ],
+  "los": [
+    1,
+    90,
+    4.41
+  ],
+  "billed": [
+    5788.15,
+    6056691.77
+  ],
+  "bor_max": 100.0,
+  "month_bor_max": 92.72,
+  "bed_days": 237549,
+  "fk_violations": 0,
+  "load_errors": 0,
+  "duplicate_keys": 0,
+  "analysis_columns": 36,
+  "repaired_links": 43,
+  "dept_bor": {
+    "DEP01": 85.7,
+    "DEP02": 71.5,
+    "DEP03": 67.8,
+    "DEP04": 74.0,
+    "DEP05": 62.4,
+    "DEP06": 77.9,
+    "DEP07": 64.3,
+    "DEP08": 45.6
+  },
+  "dept_alos": {
+    "DEP01": 5.43,
+    "DEP02": 4.71,
+    "DEP03": 5.73,
+    "DEP04": 3.48,
+    "DEP05": 2.85,
+    "DEP06": 6.73,
+    "DEP07": 2.49,
+    "DEP08": 3.03
+  },
+  "dept_rr": {
+    "DEP01": 5.78,
+    "DEP02": 8.47,
+    "DEP03": 2.61,
+    "DEP04": 6.56,
+    "DEP05": 2.62,
+    "DEP06": 6.34,
+    "DEP07": 8.12,
+    "DEP08": 2.91
+  },
+  "dept_rpbd": {
+    "DEP01": 24814.0,
+    "DEP02": 10614.0,
+    "DEP03": 21809.0,
+    "DEP04": 7235.0,
+    "DEP05": 16500.0,
+    "DEP06": 30840.0,
+    "DEP07": 6956.0,
+    "DEP08": 8657.0
+  },
+  "payer_share": {
+    "2023": {
+      "P01": 41.35,
+      "P02": 25.54,
+      "P03": 15.13,
+      "P04": 11.6,
+      "P05": 6.37
+    },
+    "2024": {
+      "P01": 36.97,
+      "P02": 26.86,
+      "P03": 15.76,
+      "P04": 11.36,
+      "P05": 9.05
+    },
+    "2025": {
+      "P01": 33.49,
+      "P02": 28.25,
+      "P03": 16.03,
+      "P04": 10.99,
+      "P05": 11.23
+    }
+  },
+  "opd_peak_ratio": 1.53,
+  "onco_drift": {
+    "2023-H1": 2.76,
+    "2023-H2": 4.27,
+    "2024-H1": 4.05,
+    "2024-H2": 4.04,
+    "2025-H1": 5.22,
+    "2025-H2": 6.0
+  },
+  "onco_year": {
+    "2023": 3.52,
+    "2024": 4.05,
+    "2025": 5.62
+  },
+  "short_rr": 7.08,
+  "long_rr": 3.57,
+  "blocked": {
+    "DEP02": 1233,
+    "DEP07": 100,
+    "DEP01": 2238,
+    "DEP04": 795,
+    "DEP06": 422,
+    "DEP03": 266,
+    "DEP05": 142,
+    "DEP08": 20
+  },
+  "patients": 150892
+}

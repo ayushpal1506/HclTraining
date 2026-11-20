@@ -1,0 +1,27 @@
+# HKD-2026 — Streamlit theme (Step 12)
+# Committed to the repo; secrets are never placed here (NFR-09).
+# Values are the four-colour palette from docs/12_UI_Framework.docx §5.
+
+[theme]
+base = "light"
+primaryColor = "#1F3864"              # navy — actions, selected filters
+backgroundColor = "#FFFFFF"           # page
+secondaryBackgroundColor = "#F4F6FA"  # sidebar, cards, table stripes
+textColor = "#0F172A"                 # slate-900, 17.8:1 on white
+font = "sans serif"                   # Inter is applied inside the Tailwind iframe
+
+[theme.sidebar]
+backgroundColor = "#F8FAFC"
+secondaryBackgroundColor = "#EEF2F7"
+
+[server]
+headless = true
+runOnSave = false
+maxUploadSize = 5
+
+[browser]
+gatherUsageStats = false
+
+[client]
+showErrorDetails = "none"             # user-safe errors, NFR-12
+toolbarMode = "minimal"
