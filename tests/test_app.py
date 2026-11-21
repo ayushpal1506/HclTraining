@@ -71,7 +71,7 @@ def test_TC_T_43_every_page_has_a_header(screen, path):
     """TC-T-43 | ui.header on every page | the page title is present and carries the data-to chip"""
     at, _ = _run(path)
     text = " ".join(str(el.value) for el in at.markdown).lower()
-    assert "hkd-2026" in text or at.title, screen
+    assert "p107" in text or "hkd-2026" in text or at.title, screen
     assert "data to" in text or "defs" in text, f"{screen} header contract"
 
 
