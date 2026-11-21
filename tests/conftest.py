@@ -1,4 +1,4 @@
-"""Shared fixtures for the HKD-2026 test suite.
+"""Shared fixtures for the p107 test suite.
 
 Only the standard library is imported here on purpose: tests/test_data.py must
 run before pandas and Streamlit are installed (Step 14), so nothing in this file

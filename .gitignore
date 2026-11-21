@@ -1,4 +1,4 @@
-# HKD-2026 Git Ignore Rules
+# p107 Git Ignore Rules
 .venv/
 __pycache__/
 *.pyc

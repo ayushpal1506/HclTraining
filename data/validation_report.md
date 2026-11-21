@@ -1,4 +1,4 @@
-# HKD-2026 · Step 10 validation report
+# p107 · Step 10 validation report
 
 Generated from `data/app.db` (seed 42, 2023-01-01 to 2025-12-31).
 
