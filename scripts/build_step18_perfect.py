@@ -737,18 +737,35 @@ def render_all_slides():
     d6.text((800, 580), "Run locally: streamlit run app.py -> push to GitHub -> deploy on Streamlit Community Cloud", fill=RGB_GREY, font=FONT_HELVETICA_13, anchor="mm")
     im6.save(IMG_DIR / "slide_06.png")
 
-    # Slide 7
+    # Slide 7 - Live Dashboard Showcase
     im7 = Image.new("RGB", (w, h), RGB_WHITE)
     d7 = ImageDraw.Draw(im7)
-    draw_content_base(im7, d7, "Dashboard", 7)
-    d7.rectangle([80, 200, 960, 792], fill=RGB_CARD, outline=RGB_BORDER, width=2)
-    d7.text((520, 496), "[Live Multi-Page Streamlit Dashboard UI-01 to UI-09]", fill=RGB_GREY, font=FONT_HELVETICA_BOLD_15, anchor="mm")
-    sc_items = [("1", "UI-01", "Executive Overview & 6 KPI Cards"), ("2", "UI-02", "Bed Occupancy & Census Heatmap"), ("3", "UI-03", "ED Door-to-Doctor Throughput"), ("4", "UI-04", "30-Day Readmission Risk Cohorts")]
-    for idx, (b_n, c_code, desc) in enumerate(sc_items):
-        sy = 220 + idx * 144
-        draw_badge(d7, 1040, sy, b_n)
-        d7.text((1130, sy + 18), f"{c_code}:", fill=RGB_RED, font=FONT_HELVETICA_BOLD_15)
-        d7.text((1130, sy + 44), desc, fill=RGB_BLACK, font=FONT_HELVETICA_13)
+    draw_content_base(im7, d7, "Live Dashboard Screens (UI-01 to UI-05)", 7)
+
+    assets_dir = ROOT / "assets"
+    screens_grid = [
+        (assets_dir / "screen_ui01_overview.png", "UI-01: Executive Overview & 6 KPI Cards", 80, 120),
+        (assets_dir / "screen_ui02_operations.png", "UI-02: Acute Bed Occupancy vs 85% Benchmark", 820, 120),
+        (assets_dir / "screen_ui03_departments.jpg", "UI-03: Clinical ALOS & Readmission Wilson CIs", 80, 480),
+        (assets_dir / "screen_ui05_finance.png", "UI-05: Payer Mix Shift & Yield Ranking", 820, 480),
+    ]
+
+    card_w = 700
+    card_h = 340
+    for path, title, cx, cy in screens_grid:
+        d7.rounded_rectangle([cx, cy, cx + card_w, cy + card_h], radius=10, fill=RGB_CARD, outline=RGB_BORDER, width=1)
+        d7.text((cx + 16, cy + 12), title, fill=RGB_RED, font=FONT_HELVETICA_BOLD_12)
+        if path.exists():
+            sim = Image.open(path).convert("RGB")
+            target_w = 668
+            target_h = int(target_w * 578 / 1024)
+            if target_h > 290:
+                target_h = 290
+                target_w = int(target_h * 1024 / 578)
+            sim = sim.resize((target_w, target_h), Image.LANCZOS)
+            offset_x = cx + (card_w - target_w) // 2
+            im7.paste(sim, (offset_x, cy + 38))
+            d7.rectangle([offset_x, cy + 38, offset_x + target_w, cy + 38 + target_h], outline=RGB_BORDER, width=1)
     im7.save(IMG_DIR / "slide_07.png")
 
     # Slide 8
