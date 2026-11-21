@@ -57,9 +57,9 @@ def add_code(code):
 # ==============================================================================
 add_md("""
 # 🏥 Exploratory Data Analysis (EDA) Masterclass
-### Healthcare Clinical & Operational Analytics — HKD-2026
+### Healthcare Clinical & Operational Analytics — p107
 **Tutor:** Senior Data Analytics Mentor  
-**Student:** Ayush Pal (Roll: 2503201450035, MCA 2nd Year Data Analyst, ABES Engineering College)  
+**Student:** Ayush Pal (Roll: 2500320140037, MCA 2nd Year Data Analyst, ABES Engineering College)  
 **Dataset:** `data/healthcare_eda_dataset.csv` (Inpatient Admissions & Hospital Operations)
 
 ---
@@ -102,7 +102,7 @@ plt.rcParams['axes.labelsize'] = 11
 plt.rcParams['axes.labelweight'] = 'bold'
 plt.rcParams['figure.dpi'] = 120
 
-# Color Constants matching ABES HKD-2026 palette
+# Color Constants matching ABES p107 palette
 C_RED = '#A51C30'
 C_DARK = '#151514'
 C_BLUE = '#1F3864'

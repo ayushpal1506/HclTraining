@@ -1,4 +1,4 @@
-"""HKD-2026 Data Quality & Anomaly Audit — Screen UI-06 (BUILD-12).
+"""p107 Data Quality & Anomaly Audit — Screen UI-06 (BUILD-12).
 
 Displays data governance checks, raw-to-clean reconciliation,
 and the audit reject log detailing excluded records (BR-14, US-17, US-18, US-19).
@@ -15,7 +15,7 @@ from src import data, filters, ui
 ROOT = Path(__file__).resolve().parent.parent
 
 # 1. Page Configuration
-ui.setup("Data Quality · HKD-2026")
+ui.setup("Data Quality · p107")
 ui.enable_mobile()
 
 # 2. Data Loading & Sidebar

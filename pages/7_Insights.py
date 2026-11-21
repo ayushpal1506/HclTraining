@@ -1,4 +1,4 @@
-"""HKD-2026 Advanced Insights & Decomposition — Screen UI-08 (BUILD-14).
+"""p107 Advanced Insights & Decomposition — Screen UI-08 (BUILD-14).
 
 Mathematical waterfall decomposition of KPI shifts into departmental contributors,
 and formal statistical hypothesis testing (Spearman rank correlation) (FR-14, FR-15, BR-03, BR-10).
@@ -13,7 +13,7 @@ import streamlit as st
 from src import data, filters, kpi, stats, ui
 
 # 1. Page Configuration
-ui.setup("Insights · HKD-2026")
+ui.setup("Insights · p107")
 ui.enable_mobile()
 
 # 2. Data Loading & Sidebar

@@ -1,4 +1,4 @@
-"""Generate the Step 18 ABES Presentation: docs/HKD-2026_Presentation.pptx.
+"""Generate the Step 18 ABES Presentation: docs/p107_Presentation.pptx.
 
 Strictly adheres to all 3-screen specifications:
 - Exactly 11 slides in exact order.
@@ -26,8 +26,8 @@ from pptx.oxml.ns import nsdecls
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
-OUT_PPTX = DOCS / "HKD-2026_Presentation.pptx"
-OUT_SEC = DOCS / "18_Presentation_HKD-2026.pptx"
+OUT_PPTX = DOCS / "p107_Presentation.pptx"
+OUT_SEC = DOCS / "18_Presentation_p107.pptx"
 IMG_DIR = DOCS / "slide_images"
 
 # --------------------------------------------------------------------------- Color Palette
@@ -327,7 +327,7 @@ def setup_content_slide(slide, title_text, slide_num):
     tf_f.word_wrap = True
     tf_f.vertical_anchor = MSO_ANCHOR.MIDDLE
     p_f = tf_f.paragraphs[0]
-    p_f.text = "HCLTech Career Shaper ABES Engineering College | HKD-2026 - Healthcare KPI Dashboard"
+    p_f.text = "HCLTech Career Shaper ABES Engineering College | p107 - Healthcare KPI Dashboard"
     p_f.font.name = "Calibri"
     p_f.font.size = Pt(9)
     p_f.font.color.rgb = C_GREY
@@ -362,17 +362,17 @@ def build_presentation():
     s1 = prs.slides.add_slide(prs.slide_layouts[6]) # blank layout
     build_dark_slide(
         s1,
-        title_text="HKD-2026 - Healthcare KPI Dashboard",
+        title_text="p107 - Healthcare KPI Dashboard",
         lines_list=[
-            "Ayush Pal | Roll No 2503201450035 / MCA 2nd Year Data Analyst",
-            "Mentor: Prof. Kalpana Dwevedi",
+            "Ayush Pal | Roll No 2500320140037 / MCA 2nd Year Data Analyst",
+            "Mentor: Mr. Dinesh Sereno",
         ],
         pink_line="19 November 2026",
     )
     set_speaker_notes(
         s1,
-        "Good morning mentors and evaluators. I am Ayush Pal, Roll 2503201450035, MCA 2nd Year Data Analyst. "
-        "Today I present project HKD-2026, the Healthcare KPI Dashboard, built under the guidance of Prof. Kalpana Dwevedi. "
+        "Good morning mentors and evaluators. I am Ayush Pal, Roll 2500320140037, MCA 2nd Year Data Analyst. "
+        "Today I present project p107, the Healthcare KPI Dashboard, built under the guidance of Mr. Dinesh Sereno. "
         "This enterprise operational analytics platform gives hospital leadership unified, real-time visibility into acute "
         "bed occupancy bottlenecks, length of stay adherence, readmissions, and specialty revenue yield."
     )
@@ -447,7 +447,7 @@ def build_presentation():
         "Our user research identified three pivotal stakeholders. Our primary user is the Operations Director, who "
         "needs daily bed census tracking to avoid hospital gridlock. Our secondary user is the Clinical Quality Head, who "
         "monitors 30-day readmissions and mortality drift to trigger clinical audits. Finally, our mentor and evaluator, "
-        "Prof. Kalpana Dwevedi, ensures architectural soundness, schema integrity, and end-to-end requirement traceability."
+        "Mr. Dinesh Sereno, ensures architectural soundness, schema integrity, and end-to-end requirement traceability."
     )
 
     # =========================================================================
@@ -867,7 +867,7 @@ def build_presentation():
         s11,
         title_text="Live demo and Q&A",
         lines_list=[
-            "App: https://2503201450035-hkd-2026.streamlit.app",
+            "App: https://2500320140037-p107.streamlit.app",
             "Code: https://github.com/ayushpal/hclTraining",
             "Thank you",
         ],

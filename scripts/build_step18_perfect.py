@@ -1,9 +1,9 @@
 """Build and render Step 18 Presentation deck (PPTX + PDF + slide images).
 
 Generates:
-1. docs/HKD-2026_Presentation.pptx & submission_project_folder/2_Project_Presentation.pptx
+1. docs/p107_Presentation.pptx & submission_project_folder/2_Project_Presentation.pptx
 2. docs/slide_images/slide_01.png to slide_11.png (high-res 1600x900 with all text and shapes)
-3. docs/HKD-2026_Presentation.pdf & submission_project_folder/2_Project_Presentation.pdf
+3. docs/p107_Presentation.pdf & submission_project_folder/2_Project_Presentation.pdf
 """
 import os
 import shutil
@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 SUB_DIR = ROOT / "submission_project_folder"
 IMG_DIR = DOCS / "slide_images"
+ABES_LOGO = ROOT / "assets" / "abes_logo.jpg"
 IMG_DIR.mkdir(parents=True, exist_ok=True)
 SUB_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -227,14 +228,18 @@ def build_dark_slide(slide, title_text, lines_list, pink_line=None):
     bg_shape.fill.fore_color.rgb = C_BLACK
     bg_shape.line.fill.background()
 
-    b_logo = slide.shapes.add_textbox(Inches(0.5), Inches(0.35), Inches(1.6), Inches(0.5))
-    tf_l = b_logo.text_frame
-    p_l = tf_l.paragraphs[0]
-    p_l.text = "[ABES logo]"
-    p_l.font.name = "Calibri"
-    p_l.font.size = Pt(10)
-    p_l.font.italic = True
-    p_l.font.color.rgb = C_PINK
+    # ABES Logo image (top-left of dark slides)
+    if ABES_LOGO.exists():
+        slide.shapes.add_picture(str(ABES_LOGO), Inches(0.25), Inches(0.18), height=Inches(0.65))
+    else:
+        b_logo = slide.shapes.add_textbox(Inches(0.5), Inches(0.35), Inches(1.6), Inches(0.5))
+        tf_l = b_logo.text_frame
+        p_l = tf_l.paragraphs[0]
+        p_l.text = "ABES"
+        p_l.font.name = "Calibri"
+        p_l.font.size = Pt(10)
+        p_l.font.bold = True
+        p_l.font.color.rgb = C_PINK
 
     b_hdr = slide.shapes.add_textbox(Inches(2.2), Inches(0.35), Inches(7.3), Inches(0.5))
     tf_h = b_hdr.text_frame
@@ -280,6 +285,10 @@ def setup_content_slide(slide, title_text, slide_num):
     bg_shape.fill.fore_color.rgb = C_WHITE
     bg_shape.line.fill.background()
 
+    # ABES Logo top-left
+    if ABES_LOGO.exists():
+        slide.shapes.add_picture(str(ABES_LOGO), Inches(0.2), Inches(0.08), height=Inches(0.55))
+
     title_shape = slide.shapes.add_textbox(Inches(0.5), Inches(0.3), Inches(9.0), Inches(0.75))
     tf = title_shape.text_frame
     p = tf.paragraphs[0]
@@ -293,7 +302,7 @@ def setup_content_slide(slide, title_text, slide_num):
     box_ftr = slide.shapes.add_textbox(Inches(0.5), Inches(5.2), Inches(7.5), Inches(0.3))
     tf_f = box_ftr.text_frame
     p_f = tf_f.paragraphs[0]
-    p_f.text = "HCLTech Career Shaper ABES Engineering College | HKD-2026 - Healthcare KPI Dashboard"
+    p_f.text = "HCLTech Career Shaper ABES Engineering College | p107 - Healthcare KPI Dashboard"
     p_f.font.name = "Calibri"
     p_f.font.size = Pt(9)
     p_f.font.color.rgb = C_GREY
@@ -323,11 +332,11 @@ def build_all():
 
     # SLIDE 1
     s1 = prs.slides.add_slide(prs.slide_layouts[6])
-    build_dark_slide(s1, "HKD-2026 - Healthcare KPI Dashboard", [
-        "Ayush Pal | Roll No 2503201450035 / MCA 2nd Year Data Analyst",
-        "Mentor: Prof. Kalpana Dwevedi"
+    build_dark_slide(s1, "p107 - Healthcare KPI Dashboard", [
+        "Ayush Pal | Roll No 2500320140037 / MCA 2nd Year Data Analyst",
+        "Mentor: Mr. Dinesh Sereno"
     ], pink_line="19 November 2026")
-    set_speaker_notes(s1, "Good morning mentors and evaluators. I am Ayush Pal, presenting project HKD-2026, the Healthcare KPI Dashboard.")
+    set_speaker_notes(s1, "Good morning mentors and evaluators. I am Ayush Pal, presenting project p107, the Healthcare KPI Dashboard.")
 
     # SLIDE 2
     s2 = prs.slides.add_slide(prs.slide_layouts[6])
@@ -570,13 +579,13 @@ def build_all():
     # SLIDE 11
     s11 = prs.slides.add_slide(prs.slide_layouts[6])
     build_dark_slide(s11, "Live demo and Q&A", [
-        "App: https://2503201450035-hkd-2026.streamlit.app",
+        "App: https://2500320140037-p107.streamlit.app",
         "Code: https://github.com/ayushpal1506/HclTraining",
         "Thank you",
     ])
     set_speaker_notes(s11, "Thank you for your time. The application is live and I invite questions from the panel.")
 
-    out_pptx = DOCS / "HKD-2026_Presentation.pptx"
+    out_pptx = DOCS / "p107_Presentation.pptx"
     prs.save(out_pptx)
     shutil.copy(out_pptx, SUB_DIR / "2_Project_Presentation.pptx")
     print(f"Saved PPTX to: {out_pptx} and {SUB_DIR / '2_Project_Presentation.pptx'}")
@@ -591,19 +600,32 @@ def render_all_slides():
     # Slide 1
     im1 = Image.new("RGB", (w, h), RGB_BLACK)
     d1 = ImageDraw.Draw(im1)
-    d1.text((80, 56), "[ABES logo]", fill=RGB_PINK, font=FONT_HELVETICA_12)
-    d1.text((700, 56), "HCLTech Career Shaper Programme | ABES Engineering College, Ghaziabad", fill=RGB_PINK, font=FONT_HELVETICA_BOLD_12)
-    d1.text((80, 248), "HKD-2026 - Healthcare KPI Dashboard", fill=RGB_WHITE, font=FONT_GEORGIA_36)
-    d1.text((80, 480), "Ayush Pal | Roll No 2503201450035 / MCA 2nd Year Data Analyst\nMentor: Prof. Kalpana Dwevedi", fill=RGB_CARD, font=FONT_HELVETICA_BOLD_15, spacing=10)
+    # Paste ABES logo top-left
+    if ABES_LOGO.exists():
+        logo_img = Image.open(ABES_LOGO).convert("RGBA")
+        logo_h = 80
+        logo_w = int(logo_img.width * logo_h / logo_img.height)
+        logo_img = logo_img.resize((logo_w, logo_h), Image.LANCZOS)
+        im1.paste(logo_img, (80, 40), logo_img)
+    d1.text((200, 56), "HCLTech Career Shaper Programme | ABES Engineering College, Ghaziabad", fill=RGB_PINK, font=FONT_HELVETICA_BOLD_12)
+    d1.text((80, 248), "p107 - Healthcare KPI Dashboard", fill=RGB_WHITE, font=FONT_GEORGIA_36)
+    d1.text((80, 480), "Ayush Pal | Roll No 2500320140037 / MCA 2nd Year Data Analyst\nMentor: Mr. Dinesh Sereno", fill=RGB_CARD, font=FONT_HELVETICA_BOLD_15, spacing=10)
     d1.text((80, 560), "19 November 2026", fill=RGB_PINK, font=FONT_HELVETICA_13)
     im1.save(IMG_DIR / "slide_01.png")
 
     # Helper for white slide header/footer
-    def draw_content_base(d, title, num):
+    def draw_content_base(im_obj, d, title, num):
         d.rectangle([0, 0, w, h], fill=RGB_WHITE)
         d.text((800, 48), title, fill=RGB_BLACK, font=FONT_GEORGIA_28, anchor="mt")
-        d.text((80, 832), "HCLTech Career Shaper ABES Engineering College | HKD-2026 - Healthcare KPI Dashboard", fill=RGB_GREY, font=FONT_HELVETICA_9)
+        d.text((80, 832), "HCLTech Career Shaper ABES Engineering College | p107 - Healthcare KPI Dashboard", fill=RGB_GREY, font=FONT_HELVETICA_9)
         d.text((1480, 832), str(num), fill=RGB_NUM_GREY, font=FONT_HELVETICA_9)
+        # Paste logo top-left
+        if ABES_LOGO.exists():
+            lg = Image.open(ABES_LOGO).convert("RGBA")
+            lg_h = 50
+            lg_w = int(lg.width * lg_h / lg.height)
+            lg = lg.resize((lg_w, lg_h), Image.LANCZOS)
+            im_obj.paste(lg, (80, 10), lg)
 
     def draw_badge(d, x, y, text):
         d.ellipse([x, y, x + 67, y + 67], fill=RGB_RED)
@@ -615,7 +637,7 @@ def render_all_slides():
     # Slide 2
     im2 = Image.new("RGB", (w, h), RGB_WHITE)
     d2 = ImageDraw.Draw(im2)
-    draw_content_base(d2, "Problem and How Might We", 2)
+    draw_content_base(im2, d2, "Problem and How Might We", 2)
     draw_card(d2, 80, 200, 688, 592)
     draw_badge(d2, 112, 232, "P")
     d2.text((200, 240), "Problem statement", fill=RGB_BLACK, font=FONT_HELVETICA_BOLD_15)
@@ -635,7 +657,7 @@ def render_all_slides():
     # Slide 3
     im3 = Image.new("RGB", (w, h), RGB_WHITE)
     d3 = ImageDraw.Draw(im3)
-    draw_content_base(d3, "Stakeholders and users", 3)
+    draw_content_base(im3, d3, "Stakeholders and users", 3)
     sh_list = [
         ("1", "Operations Director", "Role: Daily bed census & ward management.\nNeed: Real-time bed bottleneck visibility.\n\nInfluence: High", 80),
         ("2", "Chief Medical Officer", "Role: Clinical protocols, ALOS adherence.\nNeed: Departmental benchmark drilldowns.\n\nInfluence: High", 568),
@@ -651,7 +673,7 @@ def render_all_slides():
     # Slide 4
     im4 = Image.new("RGB", (w, h), RGB_WHITE)
     d4 = ImageDraw.Draw(im4)
-    draw_content_base(d4, "Requirements and traceability", 4)
+    draw_content_base(im4, d4, "Requirements and traceability", 4)
     # Draw Table
     tx, ty = 80, 208
     cols = [160, 544, 160, 192, 192, 192]
@@ -683,7 +705,7 @@ def render_all_slides():
     # Slide 5
     im5 = Image.new("RGB", (w, h), RGB_WHITE)
     d5 = ImageDraw.Draw(im5)
-    draw_content_base(d5, "Data and preparation", 5)
+    draw_content_base(im5, d5, "Data and preparation", 5)
     s_list = [("53,915", "rows (admissions)", 80), ("21", "columns (features)", 448), ("2023-2025", "period (3 years)", 816), ("1,842", "issues fixed", 1184)]
     for num, lbl, px in s_list:
         d5.text((px + 160, 208), num, fill=RGB_RED, font=FONT_GEORGIA_36, anchor="mm")
@@ -699,7 +721,7 @@ def render_all_slides():
     # Slide 6
     im6 = Image.new("RGB", (w, h), RGB_WHITE)
     d6 = ImageDraw.Draw(im6)
-    draw_content_base(d6, "Solution and technology", 6)
+    draw_content_base(im6, d6, "Solution and technology", 6)
     wf_steps = [("Raw data", "CSV / xlsx"), ("Clean & KPIs", "Python, pandas"), ("Store", "SQLite app.db"), ("Dashboard", "Streamlit UI"), ("Deploy", "GitHub -> Cloud")]
     for idx, (top, bot) in enumerate(wf_steps):
         sx = 80 + idx * 296
@@ -718,7 +740,7 @@ def render_all_slides():
     # Slide 7
     im7 = Image.new("RGB", (w, h), RGB_WHITE)
     d7 = ImageDraw.Draw(im7)
-    draw_content_base(d7, "Dashboard", 7)
+    draw_content_base(im7, d7, "Dashboard", 7)
     d7.rectangle([80, 200, 960, 792], fill=RGB_CARD, outline=RGB_BORDER, width=2)
     d7.text((520, 496), "[Live Multi-Page Streamlit Dashboard UI-01 to UI-09]", fill=RGB_GREY, font=FONT_HELVETICA_BOLD_15, anchor="mm")
     sc_items = [("1", "UI-01", "Executive Overview & 6 KPI Cards"), ("2", "UI-02", "Bed Occupancy & Census Heatmap"), ("3", "UI-03", "ED Door-to-Doctor Throughput"), ("4", "UI-04", "30-Day Readmission Risk Cohorts")]
@@ -732,7 +754,7 @@ def render_all_slides():
     # Slide 8
     im8 = Image.new("RGB", (w, h), RGB_WHITE)
     d8 = ImageDraw.Draw(im8)
-    draw_content_base(d8, "Key findings", 8)
+    draw_content_base(im8, d8, "Key findings", 8)
     findings_list = [
         ("93.8%", "ICU Bed Saturation", "Evidence: Exceeds 85% NABH safety threshold, creating acute admission diversions.", 80),
         ("16.8%", "General Medicine Readmission", "Evidence: Driven by chronic heart failure and COPD patients over 65 years.", 568),
@@ -748,7 +770,7 @@ def render_all_slides():
     # Slide 9
     im9 = Image.new("RGB", (w, h), RGB_WHITE)
     d9 = ImageDraw.Draw(im9)
-    draw_content_base(d9, "Testing and validation", 9)
+    draw_content_base(im9, d9, "Testing and validation", 9)
     d9.text((288, 260), "70 / 71", fill=RGB_RED, font=FONT_GEORGIA_44, anchor="mm")
     d9.text((288, 340), "70 test cases passed\npytest: 70 passed (1 skip)\nmanual: 19 verified", fill=RGB_GREY, font=FONT_HELVETICA_13, anchor="mm", spacing=6)
     tx, ty = 544, 216
@@ -777,7 +799,7 @@ def render_all_slides():
     # Slide 10
     im10 = Image.new("RGB", (w, h), RGB_WHITE)
     d10 = ImageDraw.Draw(im10)
-    draw_content_base(d10, "Recommendation, limitations and next steps", 10)
+    draw_content_base(im10, d10, "Recommendation, limitations and next steps", 10)
     rec_items = [
         ("R", "Recommendation", "Reallocate 8 step-down telemetry beds to ICU to relieve the 93.8% saturation.\n\nAutomate 48-hour post-discharge telehealth follow-ups for high-risk cardiac cohorts.", 80),
         ("L", "Limitations", "Dataset is synthetic (seed 42), though calibrated to clinical distributions.\n\nCensus relies on midnight snapshots rather than continuous streaming bed telemetry.", 568),
@@ -793,10 +815,16 @@ def render_all_slides():
     # Slide 11
     im11 = Image.new("RGB", (w, h), RGB_BLACK)
     d11 = ImageDraw.Draw(im11)
-    d11.text((80, 56), "[ABES logo]", fill=RGB_PINK, font=FONT_HELVETICA_12)
-    d11.text((700, 56), "HCLTech Career Shaper Programme | ABES Engineering College, Ghaziabad", fill=RGB_PINK, font=FONT_HELVETICA_BOLD_12)
+    # Paste ABES logo top-left
+    if ABES_LOGO.exists():
+        logo_img11 = Image.open(ABES_LOGO).convert("RGBA")
+        logo_h11 = 80
+        logo_w11 = int(logo_img11.width * logo_h11 / logo_img11.height)
+        logo_img11 = logo_img11.resize((logo_w11, logo_h11), Image.LANCZOS)
+        im11.paste(logo_img11, (80, 40), logo_img11)
+    d11.text((200, 56), "HCLTech Career Shaper Programme | ABES Engineering College, Ghaziabad", fill=RGB_PINK, font=FONT_HELVETICA_BOLD_12)
     d11.text((80, 248), "Live demo and Q&A", fill=RGB_WHITE, font=FONT_GEORGIA_36)
-    d11.text((80, 440), "App: https://2503201450035-hkd-2026.streamlit.app\nCode: https://github.com/ayushpal1506/HclTraining\n\nThank you", fill=RGB_CARD, font=FONT_HELVETICA_BOLD_15, spacing=14)
+    d11.text((80, 440), "App: https://2500320140037-p107.streamlit.app\nCode: https://github.com/ayushpal1506/HclTraining\n\nThank you", fill=RGB_CARD, font=FONT_HELVETICA_BOLD_15, spacing=14)
     im11.save(IMG_DIR / "slide_11.png")
 
     print("All 11 slide images rendered with complete visual elements!")
@@ -809,7 +837,7 @@ def compile_presentation_pdf():
         print("No slide images found!")
         return
     im_list = [Image.open(f).convert("RGB") for f in imgs]
-    out_pdf = DOCS / "HKD-2026_Presentation.pdf"
+    out_pdf = DOCS / "p107_Presentation.pdf"
     im_list[0].save(out_pdf, save_all=True, append_images=im_list[1:], resolution=150.0)
     shutil.copy(out_pdf, SUB_DIR / "2_Project_Presentation.pdf")
     print(f"Compiled PDF: {out_pdf} and {SUB_DIR / '2_Project_Presentation.pdf'}")

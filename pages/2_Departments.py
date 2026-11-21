@@ -1,4 +1,4 @@
-"""HKD-2026 Clinical Departments, ALOS & Readmission — Screen UI-03 (BUILD-09).
+"""p107 Clinical Departments, ALOS & Readmission — Screen UI-03 (BUILD-09).
 
 Department-level benchmarking: ALOS dumbbell chart against 4.0-day standard,
 30-day readmission rates with Wilson score 95% confidence intervals (OQ-03, OQ-04, OQ-08).
@@ -13,7 +13,7 @@ import streamlit as st
 from src import data, filters, kpi, stats, ui
 
 # 1. Page Configuration
-ui.setup("Departments · HKD-2026")
+ui.setup("Departments · p107")
 ui.enable_mobile()
 
 # 2. Data Loading & Sidebar

@@ -1,10 +1,10 @@
 """Generate all LMS submission artifacts:
-1. Project document PDF (docs/HKD-2026_Project_Document.pdf)
-2. Project presentation PDF (docs/HKD-2026_Presentation.pdf - already built)
-3. GitHub report PDF (docs/HKD-2026_GitHub_Report.pdf)
-4. Complete code PDF (docs/HKD-2026_Complete_Code.pdf)
+1. Project document PDF (docs/p107_Project_Document.pdf)
+2. Project presentation PDF (docs/p107_Presentation.pdf - already built)
+3. GitHub report PDF (docs/p107_GitHub_Report.pdf)
+4. Complete code PDF (docs/p107_Complete_Code.pdf)
 5. Individual step PDFs (docs/pdfs/01_... to 16_...)
-6. Submission ZIP archive (HKD-2026_Ayush_Pal_Submission.zip)
+6. Submission ZIP archive (p107_Ayush_Pal_Submission.zip)
 """
 import os
 import glob
@@ -63,7 +63,7 @@ class NumberedCanvas(canvas.Canvas):
         self.setFillColor(C_GREY)
         # Header (pages > 1)
         if self._pageNumber > 1:
-            self.drawString(54, 11 * inch - 36, "HCLTech Career Shaper · ABES EC | HKD-2026 Healthcare KPI Dashboard")
+            self.drawString(54, 11 * inch - 36, "HCLTech Career Shaper · ABES EC | p107 Healthcare KPI Dashboard")
             self.setStrokeColor(C_BORDER)
             self.setLineWidth(0.5)
             self.line(54, 11 * inch - 42, 8.5 * inch - 54, 11 * inch - 42)
@@ -71,7 +71,7 @@ class NumberedCanvas(canvas.Canvas):
         # Footer
         footer_text = f"Page {self._pageNumber} of {page_count}"
         self.drawRightString(8.5 * inch - 54, 36, footer_text)
-        self.drawString(54, 36, "Learner: Ayush Pal (Roll: 2503201450035) · MCA 2nd Year Data Analyst")
+        self.drawString(54, 36, "Learner: Ayush Pal (Roll: 2500320140037) · MCA 2nd Year Data Analyst")
         self.setStrokeColor(C_BORDER)
         self.setLineWidth(0.5)
         self.line(54, 48, 8.5 * inch - 54, 48)
@@ -158,7 +158,21 @@ def get_styles():
     return styles
 
 
+def _extract_inline_images(p_element, doc):
+    """Return list of (image_bytes, content_type) for all inline images in a paragraph element."""
+    ns = 'http://schemas.openxmlformats.org/drawingml/2006/main'
+    blips = p_element.findall(f'.//{{{ns}}}blip')
+    images = []
+    for blip in blips:
+        rId = blip.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed')
+        if rId and rId in doc.part.rels:
+            img_part = doc.part.rels[rId].target_part
+            images.append((img_part.blob, img_part.content_type))
+    return images
+
+
 def convert_docx_to_pdf(docx_path: Path, pdf_path: Path):
+    import io as _io
     doc = Document(docx_path)
     styles = get_styles()
     story = []
@@ -169,6 +183,21 @@ def convert_docx_to_pdf(docx_path: Path, pdf_path: Path):
         if isinstance(element, CT_P):
             p = DocxParagraph(element, doc)
             text = p.text.strip()
+
+            # Check for inline images in the paragraph
+            inline_imgs = _extract_inline_images(element, doc)
+            if inline_imgs:
+                for img_bytes, _ in inline_imgs:
+                    try:
+                        rl_img = Image(_io.BytesIO(img_bytes), width=1.1*inch, height=1.1*inch)
+                        rl_img.hAlign = 'LEFT'
+                        story.append(rl_img)
+                        story.append(Spacer(1, 6))
+                    except Exception:
+                        pass
+                if not text:
+                    continue
+
             if not text:
                 story.append(Spacer(1, 4))
                 continue
@@ -339,12 +368,12 @@ def generate_github_report_pdf(pdf_path: Path):
 
     meta_table = [
         [Paragraph("Repository URL", styles['TableHead']), Paragraph("https://github.com/ayushpal1506/HclTraining", styles['TableHead'])],
-        [Paragraph("Project ID", styles['TableCell']), Paragraph("HKD-2026 (Healthcare KPI Dashboard)", styles['TableCell'])],
-        [Paragraph("Learner", styles['TableCell']), Paragraph("Ayush Pal (Roll No: 2503201450035)", styles['TableCell'])],
+        [Paragraph("Project ID", styles['TableCell']), Paragraph("p107 (Healthcare KPI Dashboard)", styles['TableCell'])],
+        [Paragraph("Learner", styles['TableCell']), Paragraph("Ayush Pal (Roll No: 2500320140037)", styles['TableCell'])],
         [Paragraph("Branch / Remote", styles['TableCell']), Paragraph("main (origin/main)", styles['TableCell'])],
-        [Paragraph("Latest Commits", styles['TableCell']), Paragraph("89b18b5 (Complete HKD-2026) · cc89914 (Streamlit Cloud config)", styles['TableCell'])],
+        [Paragraph("Latest Commits", styles['TableCell']), Paragraph("89b18b5 (Complete p107) · cc89914 (Streamlit Cloud config)", styles['TableCell'])],
         [Paragraph("Working Tree", styles['TableCell']), Paragraph("Clean (0 uncommitted changes, 100% synchronized)", styles['TableCell'])],
-        [Paragraph("Deployment Target", styles['TableCell']), Paragraph("https://2503201450035-hkd-2026.streamlit.app", styles['TableCell'])],
+        [Paragraph("Deployment Target", styles['TableCell']), Paragraph("https://2500320140037-p107.streamlit.app", styles['TableCell'])],
     ]
     t_meta = Table(meta_table, colWidths=[2.2 * inch, 4.8 * inch])
     t_meta.setStyle(TableStyle([
@@ -386,8 +415,22 @@ def generate_github_report_pdf(pdf_path: Path):
     story.append(t_inv)
     story.append(Spacer(1, 15))
 
+    story.append(PageBreak())
+
+    story.append(Paragraph("GitHub Repository Screenshot (Verified File Tree)", styles['Heading1_Custom']))
+    story.append(Paragraph("Repository: https://github.com/ayushpal1506/HclTraining (Public · Branch: main)", styles['DocSubTitle']))
+    story.append(Spacer(1, 8))
+
+    # Embed GitHub repository screenshot
+    gh_screenshot = ROOT / "assets" / "github_repo_screenshot.jpg"
+    if gh_screenshot.exists():
+        story.append(Image(str(gh_screenshot), width=6.8 * inch, height=3.84 * inch))
+        story.append(Spacer(1, 12))
+
     story.append(Paragraph("CI/CD & Code Quality Verification", styles['Heading1_Custom']))
     verification_bullets = [
+        "<b>Repository URL:</b> <font color='#1F3864'>https://github.com/ayushpal1506/HclTraining</font> (Public repository)",
+        "<b>Live Streamlit App:</b> <font color='#1F3864'>https://2500320140037-p107.streamlit.app</font>",
         "<b>Zero Inventions & Traceability:</b> All metrics trace to ground truth database (53,915 IPD episodes, 143,139 OPD visits).",
         "<b>No Credentials or Secrets:</b> Enforces NFR-09 security; completely self-contained with no exposed tokens.",
         "<b>Automated Tests:</b> 70 test cases passing across data integrity, KPI computation, filter slices, and edge cases.",
@@ -413,7 +456,7 @@ def generate_complete_code_pdf(pdf_path: Path):
     story = []
 
     story.append(Paragraph("Complete Project Codebase Report", styles['DocTitle']))
-    story.append(Paragraph("HKD-2026 Healthcare KPI Dashboard · Source Code Documentation", styles['DocSubTitle']))
+    story.append(Paragraph("p107 Healthcare KPI Dashboard · Source Code Documentation", styles['DocSubTitle']))
     story.append(Spacer(1, 10))
 
     code_files = [
@@ -463,13 +506,13 @@ def generate_complete_code_pdf(pdf_path: Path):
 
 def create_submission_zip(zip_path: Path):
     import zipfile
-    exclude_dirs = {'.venv', '.git', '__pycache__', '.pytest_cache'}
+    exclude_dirs = {'.venv', '.git', '__pycache__', '.pytest_cache', 'submission_project_folder', 'submission project folder'}
     
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(ROOT):
             dirs[:] = [d for d in dirs if d not in exclude_dirs]
             for file in files:
-                if file.startswith('.') or file.endswith('.pyc') or file == zip_path.name:
+                if file.startswith('.') or file.endswith('.pyc') or file.endswith('.zip') or file == zip_path.name:
                     continue
                 full_path = Path(root) / file
                 rel_path = full_path.relative_to(ROOT)
@@ -483,25 +526,25 @@ def main():
     print("=== Generating LMS Submission Artifacts ===")
 
     # 1. Project Document PDF (Step 17)
-    proj_doc_docx = DOCS_DIR / "HKD-2026_Project_Document.docx"
-    proj_doc_pdf = DOCS_DIR / "HKD-2026_Project_Document.pdf"
+    proj_doc_docx = DOCS_DIR / "p107_Project_Document.docx"
+    proj_doc_pdf = DOCS_DIR / "p107_Project_Document.pdf"
     if proj_doc_docx.exists():
         convert_docx_to_pdf(proj_doc_docx, proj_doc_pdf)
 
-    # 2. Presentation PDF already built from slide images (docs/HKD-2026_Presentation.pdf)
+    # 2. Presentation PDF already built from slide images (docs/p107_Presentation.pdf)
 
     # 3. GitHub Report PDF
-    github_report_pdf = DOCS_DIR / "HKD-2026_GitHub_Report.pdf"
+    github_report_pdf = DOCS_DIR / "p107_GitHub_Report.pdf"
     generate_github_report_pdf(github_report_pdf)
 
     # 4. Complete Code PDF
-    complete_code_pdf = DOCS_DIR / "HKD-2026_Complete_Code.pdf"
+    complete_code_pdf = DOCS_DIR / "p107_Complete_Code.pdf"
     generate_complete_code_pdf(complete_code_pdf)
 
     # 5. All step documents from Step 1 through Step 16 as individual PDFs
     step_files = sorted(DOCS_DIR.glob("*.*"))
     for sf in step_files:
-        if sf.suffix == ".docx" and not sf.name.startswith("HKD-2026"):
+        if sf.suffix == ".docx" and not sf.name.startswith("p107"):
             out_pdf = PDFS_DIR / f"{sf.stem}.pdf"
             convert_docx_to_pdf(sf, out_pdf)
         elif sf.suffix == ".xlsx":
@@ -532,13 +575,13 @@ def main():
     # Copy files to submission_project_folder
     import shutil
     shutil.copy(proj_doc_pdf, sub_dir / "1_Project_Document.pdf")
-    shutil.copy(DOCS_DIR / "HKD-2026_Presentation.pdf", sub_dir / "2_Project_Presentation.pdf")
-    shutil.copy(DOCS_DIR / "HKD-2026_Presentation.pptx", sub_dir / "2_Project_Presentation.pptx")
+    shutil.copy(DOCS_DIR / "p107_Presentation.pdf", sub_dir / "2_Project_Presentation.pdf")
+    shutil.copy(DOCS_DIR / "p107_Presentation.pptx", sub_dir / "2_Project_Presentation.pptx")
     shutil.copy(github_report_pdf, sub_dir / "3_GitHub_Report.pdf")
     shutil.copy(complete_code_pdf, sub_dir / "4_Complete_Code.pdf")
 
     # 7. Project ZIP archive
-    zip_path = ROOT / "HKD-2026_Ayush_Pal_Submission.zip"
+    zip_path = ROOT / "p107_Ayush_Pal_Submission.zip"
     create_submission_zip(zip_path)
     shutil.copy(zip_path, sub_dir / "6_Project_ZIP_File.zip")
 

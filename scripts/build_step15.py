@@ -33,11 +33,11 @@ ALT_FILL = "EAF0F8"
 CALLOUT_FILL = "F2F6FC"
 OK_FILL = "E8F3EC"
 
-PROJECT_ID = "HKD-2026"
+PROJECT_ID = "p107"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
-ROLL = "2503201450035"
-MENTOR = "Kalpana Dwevedi"
+ROLL = "2500320140037"
+MENTOR = "Mr. Dinesh Sereno"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")

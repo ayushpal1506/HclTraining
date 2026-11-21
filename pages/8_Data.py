@@ -1,4 +1,4 @@
-"""HKD-2026 Raw Data Exploration & Secure Export — Screen UI-09 (BUILD-15).
+"""p107 Raw Data Exploration & Secure Export — Screen UI-09 (BUILD-15).
 
 Paginated analytical view preview, column data dictionary, and security-hardened
 CSV export with formula injection sanitization, UTF-8 BOM and 50,000-row guard (US-20, NFR-09).
@@ -12,7 +12,7 @@ import streamlit as st
 from src import data, filters, ui
 
 # 1. Page Configuration
-ui.setup("Data & Export · HKD-2026")
+ui.setup("Data & Export · p107")
 ui.enable_mobile()
 
 # 2. Data Loading & Sidebar

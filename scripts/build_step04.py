@@ -1,4 +1,4 @@
-"""Build Step 4 deliverable: Requirements Traceability Matrix (Excel) for HKD-2026."""
+"""Build Step 4 deliverable: Requirements Traceability Matrix (Excel) for p107."""
 import os
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -129,7 +129,7 @@ headers = ["OQ", "HMW", "Req ID (BR)", "Requirement (WHAT the business needs)",
 
 ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=len(headers))
 c = ws.cell(row=1, column=1)
-c.value = "HKD-2026  \u00b7  Healthcare KPI Dashboard  \u2014  Requirements Traceability Matrix (RTM)"
+c.value = "p107  \u00b7  Healthcare KPI Dashboard  \u2014  Requirements Traceability Matrix (RTM)"
 c.font = Font(name="Calibri", size=14, bold=True, color=WHITE)
 c.fill = PatternFill("solid", fgColor=NAVY)
 c.alignment = Alignment(vertical="center", horizontal="left", indent=1)
@@ -217,7 +217,7 @@ cs = wb.create_sheet("Coverage Check")
 cs.sheet_view.showGridLines = False
 cs.merge_cells("A1:F1")
 c = cs["A1"]
-c.value = "Coverage Check  \u00b7  HKD-2026  \u00b7  v1.0 (19-Nov-2026)"
+c.value = "Coverage Check  \u00b7  p107  \u00b7  v1.0 (19-Nov-2026)"
 c.font = Font(name="Calibri", size=13, bold=True, color=WHITE)
 c.fill = PatternFill("solid", fgColor=NAVY)
 c.alignment = Alignment(vertical="center", indent=1)

@@ -1,4 +1,4 @@
-"""HKD-2026 Shared sidebar filters and session state manager (BUILD-06).
+"""p107 Shared sidebar filters and session state manager (BUILD-06).
 
 Maintains global filter state across all 9 screens.
 Cascades wards based on selected departments.
@@ -70,7 +70,7 @@ def render_sidebar(episodes_df: pd.DataFrame) -> tuple[FilterState, list[str]]:
     init_session_state()
 
     with st.sidebar:
-        st.markdown("### 🏥 **HKD-2026 Filters**")
+        st.markdown("### 🏥 **p107 Filters**")
         st.caption("Filters apply across all pages via session state.")
 
         # 1. Period Selector (includes 2026 for empty state testing)

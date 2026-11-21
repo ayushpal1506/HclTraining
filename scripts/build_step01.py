@@ -1,4 +1,4 @@
-"""Build Step 1 deliverable: Project Understanding for HKD-2026."""
+"""Build Step 1 deliverable: Project Understanding for p107."""
 import os
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
@@ -14,11 +14,11 @@ GREY = RGBColor(0x59, 0x59, 0x59)
 HDR_FILL = "1F3864"
 ALT_FILL = "EAF0F8"
 
-PROJECT_ID = "HKD-2026"
+PROJECT_ID = "p107"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
-ROLL = "2503201450035"
-MENTOR = "Kalpana Dwevedi"
+ROLL = "2500320140037"
+MENTOR = "Mr. Dinesh Sereno"
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                    "docs", "01_Project_Understanding.docx")
 

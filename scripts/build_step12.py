@@ -27,11 +27,11 @@ HDR_FILL = "1F3864"
 ALT_FILL = "EAF0F8"
 CALLOUT_FILL = "F2F6FC"
 
-PROJECT_ID = "HKD-2026"
+PROJECT_ID = "p107"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
-ROLL = "2503201450035"
-MENTOR = "Kalpana Dwevedi"
+ROLL = "2500320140037"
+MENTOR = "Mr. Dinesh Sereno"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -291,7 +291,7 @@ SIDE_BASE = [
 WIREFRAMES = {}
 
 WIREFRAMES["UI-01"] = wf(
-    "HKD-2026  Healthcare KPI Dashboard          data to 31-12-2025   defs v1.0",
+    "p107  Healthcare KPI Dashboard          data to 31-12-2025   defs v1.0",
     SIDE_BASE,
     ["chips: 2025 · All depts · All payers          [Export CSV]",
      "KPI BAND — six cards: 3 x 2 at 1440 px"]
@@ -432,7 +432,7 @@ WIREFRAMES["UI-09"] = wf(
     + ["rows > 50,000 → button asks for a narrower period"])
 
 _SEP = "+" + "-" * (MAIN_W - 2) + "+"
-SHELL = wf("HKD-2026 — one shell, nine screens",
+SHELL = wf("p107 — one shell, nine screens",
            ["SIDEBAR — native",
             "Period      [ 2025 ]",
             "Compare to  [ 2024 ]",
@@ -528,7 +528,7 @@ rt.cell(row=2, column=1).value = (
 
 # Coverage Check ------------------------------------------------------------
 cc = wb["Coverage Check"]
-cc.cell(row=1, column=1).value = "Coverage Check  ·  HKD-2026  ·  v1.3 (19-Nov-2026)"
+cc.cell(row=1, column=1).value = "Coverage Check  ·  p107  ·  v1.3 (19-Nov-2026)"
 
 # forward-column table
 for r in range(55, cc.max_row + 1):
@@ -1195,7 +1195,7 @@ mono(doc, """# pages/1_Operations.py — the shape every page follows
 import streamlit as st
 from src import ui, filters, data_access as da, kpi, charts
 
-ui.setup("Operations · HKD-2026")
+ui.setup("Operations · p107")
 ui.enable_mobile()
 ctx = da.context()                      # cached read-only frames
 f = filters.sidebar(ctx)                # one state object

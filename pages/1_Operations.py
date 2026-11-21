@@ -1,4 +1,4 @@
-"""HKD-2026 Operations & Capacity Bottlenecks — Screen UI-02 (BUILD-08).
+"""p107 Operations & Capacity Bottlenecks — Screen UI-02 (BUILD-08).
 
 Analyzes bed occupancy against the 85.0% clinical target, 7-day ward projections,
 and outpatient volume seasonality patterns (OQ-01, OQ-02, OQ-06).
@@ -13,7 +13,7 @@ import streamlit as st
 from src import data, filters, kpi, ui
 
 # 1. Page Configuration
-ui.setup("Operations · HKD-2026")
+ui.setup("Operations · p107")
 ui.enable_mobile()
 
 # 2. Data Loading & Sidebar

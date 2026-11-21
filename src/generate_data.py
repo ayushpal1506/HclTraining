@@ -1,4 +1,4 @@
-"""HKD-2026 — synthetic dataset generator (Step 10).
+"""p107 — synthetic dataset generator (Step 10).
 
 Builds a three-year hospital dataset that matches the Step 8 schema exactly:
 5 tables, 49 columns, 7 foreign keys. Deterministic: seed 42.
@@ -771,9 +771,9 @@ ws.column_dimensions["A"].width = 30
 ws.column_dimensions["B"].width = 105
 
 rows = [
-    ("Project", "HKD-2026 | Healthcare KPI Dashboard | Data Analytics"),
-    ("Student", "Ayush Pal · Roll 2503201450035 · MCA 2nd year (DA), ABES Engineering College"),
-    ("Mentor", "Kalpana Dwevedi"),
+    ("Project", "p107 | Healthcare KPI Dashboard | Data Analytics"),
+    ("Student", "Ayush Pal · Roll 2500320140037 · MCA 2nd year (DA), ABES Engineering College"),
+    ("Mentor", "Mr. Dinesh Sereno"),
     ("Step", "10 — Dataset generation"),
     ("Seed", "42 (every run reproduces this dataset exactly)"),
     ("Period", "2023-01-01 to 2025-12-31 (1,096 days)"),
@@ -790,7 +790,7 @@ rows = [
 ]
 ws.merge_cells("A1:B1")
 c = ws["A1"]
-c.value = "HKD-2026 · Synthetic dataset · Step 10"
+c.value = "p107 · Synthetic dataset · Step 10"
 c.font = Font(size=14, bold=True, color="FFFFFF")
 c.fill = PatternFill("solid", fgColor=NAVY)
 c.alignment = Alignment(vertical="center", indent=1)
@@ -954,7 +954,7 @@ summary = dict(
 with open(os.path.join(DATA, "validation_summary.json"), "w", encoding="utf-8") as fh:
     json.dump(summary, fh, indent=2, default=str)
 
-lines = ["# HKD-2026 · Step 10 validation report", "",
+lines = ["# p107 · Step 10 validation report", "",
          f"Generated from `data/app.db` (seed {SEED}, {fmt(START)} to {fmt(END)}).", "",
          "## Row counts", "", "| Table | Raw | Cleaned | Rejected/removed |", "|---|---:|---:|---:|"]
 for name in TABLES:

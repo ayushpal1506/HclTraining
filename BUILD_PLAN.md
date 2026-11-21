@@ -1,16 +1,16 @@
-# HKD-2026 — Master Build Plan (BUILD_PLAN.md)
+# p107 — Master Build Plan (BUILD_PLAN.md)
 
-> **Project:** Healthcare KPI Dashboard (`HKD-2026`)  
+> **Project:** Healthcare KPI Dashboard (`p107`)  
 > **Domain:** Clinical & Operational Data Analytics  
-> **Student:** Ayush Pal (Roll: 2503201450035, MCA 2nd yr DA, ABES)  
-> **Mentor:** Prof. Kalpana Dwevedi  
+> **Student:** Ayush Pal (Roll: 2500320140037, MCA 2nd yr DA, ABES)  
+> **Mentor:** Mr. Dinesh Sereno  
 > **Target Stack:** Python 3.12+, Streamlit, Plotly, Tailwind CSS (iframe), SQLite (`data/app.db`), pytest  
 
 ---
 
 ## 1. Project Summary & Deliverable Index
 
-HKD-2026 is an enterprise-grade hospital operational analytics and clinical KPI dashboard designed for hospital executives, medical directors, and financial controllers.
+p107 is an enterprise-grade hospital operational analytics and clinical KPI dashboard designed for hospital executives, medical directors, and financial controllers.
 The platform monitors inpatient throughput, bed occupancy, average length of stay (ALOS), 30-day unplanned readmissions, in-hospital mortality, and revenue per bed-day.
 Built on a verified synthetic warehouse of 53,915 inpatient episodes and 143,139 OPD visits across 8 clinical departments, 20 wards, and 5 payer categories.
 The analytical engine implements strict zero-division guards, closed-form Wilson score confidence intervals, and statistical process control drift detection.
@@ -166,7 +166,7 @@ hclTraining/
 - **Traceability:** Features: `FR-01, FR-02, FR-05, FR-12, FR-20, BR-04` | User Stories: `US-02, US-08, US-16`
 - **AI Implementation Prompt:**
   ```text
-  Build 'app.py'. Call ui.setup('Overview · HKD-2026') and ui.enable_mobile(). Load data via src.data, render sidebar via src.filters. Display ui.header('Executive Overview', 'High-level hospital throughput, capacity, quality & financial summary', as_of='31 Dec 2025'). Render ui.dq_banner(passed=6, failed=0, period='2025'). Display ui.filter_chips(). Render 6 KPI cards in 2 rows: Discharges (18,142), Bed Occupancy Rate (73.2%), ALOS (4.36 d), Revenue (₹135.26 cr), Mortality Rate (1.29%), and 30-day Readmission (5.03%) with deltas. Add 3 insight boxes highlighting key operational takeaways and quick links to deep-dive pages.
+  Build 'app.py'. Call ui.setup('Overview · p107') and ui.enable_mobile(). Load data via src.data, render sidebar via src.filters. Display ui.header('Executive Overview', 'High-level hospital throughput, capacity, quality & financial summary', as_of='31 Dec 2025'). Render ui.dq_banner(passed=6, failed=0, period='2025'). Display ui.filter_chips(). Render 6 KPI cards in 2 rows: Discharges (18,142), Bed Occupancy Rate (73.2%), ALOS (4.36 d), Revenue (₹135.26 cr), Mortality Rate (1.29%), and 30-day Readmission (5.03%) with deltas. Add 3 insight boxes highlighting key operational takeaways and quick links to deep-dive pages.
   ```
 - **Verification Procedure:** Run streamlit run app.py; verify page loads in < 2 seconds with all 6 KPI cards displaying exact validated metrics.
 - **Required Passing Tests:** `TC-F-01, TC-F-04, TC-F-13, TC-F-16, TC-F-18, TC-F-40, TC-T-41, TC-T-45`
@@ -177,7 +177,7 @@ hclTraining/
 - **Traceability:** Features: `FR-02, FR-05, FR-06, FR-10, BR-01, BR-02, BR-09` | User Stories: `US-03, US-04, US-05, US-07`
 - **AI Implementation Prompt:**
   ```text
-  Create 'pages/1_Operations.py'. Call ui.setup('Operations · HKD-2026'). Render sidebar filters and header. Implement tabs: 'Capacity & Bottlenecks', '7-Day Ward Forecast', 'OPD Volume & Trends'. Tab 1: Horizontal Plotly bar chart comparing department BOR against 85.0% target line; Cardiology highlighted in red (>85%). Show occupancy gap in percentage points and physical beds needed. Tab 2: 7-day forward ward occupancy forecast table and bar chart. Tab 3: 12x7 heatmap of OPD arrivals showing Monday peak (ratio 1.52) and Sunday lull, plus Nov-Feb winter respiratory surge (+28%).
+  Create 'pages/1_Operations.py'. Call ui.setup('Operations · p107'). Render sidebar filters and header. Implement tabs: 'Capacity & Bottlenecks', '7-Day Ward Forecast', 'OPD Volume & Trends'. Tab 1: Horizontal Plotly bar chart comparing department BOR against 85.0% target line; Cardiology highlighted in red (>85%). Show occupancy gap in percentage points and physical beds needed. Tab 2: 7-day forward ward occupancy forecast table and bar chart. Tab 3: 12x7 heatmap of OPD arrivals showing Monday peak (ratio 1.52) and Sunday lull, plus Nov-Feb winter respiratory surge (+28%).
   ```
 - **Verification Procedure:** Inspect operations page; verify Cardiology occupancy reads 85.7% (breaching target) and Monday OPD volume averages 202.7 visits/day.
 - **Required Passing Tests:** `TC-F-02, TC-F-05, TC-F-06, TC-F-14, TC-F-21, TC-F-22, TC-F-27, TC-F-41, TC-T-42`
@@ -296,7 +296,7 @@ hclTraining/
 
 ## 4. Definition of Done (DoD)
 
-A task or release milestone in HKD-2026 is considered **DONE** if and only if all following criteria are met:
+A task or release milestone in p107 is considered **DONE** if and only if all following criteria are met:
 1. **Requirements Coverage:** 100% of Must-have Business Requirements (`BR-01..07, 09, 13`) and Functional Requirements (`FR-01..22`) are implemented and validated.
 2. **Test Suite Execution:** All 51 Technical Tests (`TC-T-01..51`) and 46 Functional Tests (`TC-F-01..46`) pass with zero errors, zero failures, and zero unhandled skips.
 3. **Performance Latency:** Every application page renders in under 3.0 seconds warm-load time (`NFR-01`), verified by `TC-T-44`.

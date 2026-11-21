@@ -14,7 +14,7 @@ from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 
-PPTX_PATH = Path("docs/HKD-2026_Presentation.pptx")
+PPTX_PATH = Path("docs/p107_Presentation.pptx")
 OUT_IMG_DIR = Path("docs/slide_images")
 OUT_IMG_DIR.mkdir(parents=True, exist_ok=True)
 

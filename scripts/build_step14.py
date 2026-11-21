@@ -1,6 +1,6 @@
 """Build the Step 14 deliverable: BUILD_PLAN.md and docs/14_BUILD_PLAN.docx.
 
-Comprehensive, step-by-step implementation plan for HKD-2026:
+Comprehensive, step-by-step implementation plan for p107:
 - Project summary (10 lines) + document links
 - Final directory structure
 - 18 Build tasks (BUILD-01 to BUILD-18) in the exact specified order
@@ -32,11 +32,11 @@ ALT_FILL = "EAF0F8"
 CALLOUT_FILL = "F2F6FC"
 OK_FILL = "E8F3EC"
 
-PROJECT_ID = "HKD-2026"
+PROJECT_ID = "p107"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
-ROLL = "2503201450035"
-MENTOR = "Kalpana Dwevedi"
+ROLL = "2500320140037"
+MENTOR = "Mr. Dinesh Sereno"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
@@ -151,7 +151,7 @@ TASKS = [
         "features": "FR-01, FR-02, FR-05, FR-12, FR-20, BR-04",
         "stories": "US-02, US-08, US-16",
         "prompt": (
-            "Build 'app.py'. Call ui.setup('Overview · HKD-2026') and ui.enable_mobile(). Load data via src.data, render sidebar via src.filters. "
+            "Build 'app.py'. Call ui.setup('Overview · p107') and ui.enable_mobile(). Load data via src.data, render sidebar via src.filters. "
             "Display ui.header('Executive Overview', 'High-level hospital throughput, capacity, quality & financial summary', as_of='31 Dec 2025'). "
             "Render ui.dq_banner(passed=6, failed=0, period='2025'). Display ui.filter_chips(). Render 6 KPI cards in 2 rows: Discharges (18,142), "
             "Bed Occupancy Rate (73.2%), ALOS (4.36 d), Revenue (₹135.26 cr), Mortality Rate (1.29%), and 30-day Readmission (5.03%) with deltas. "
@@ -168,7 +168,7 @@ TASKS = [
         "features": "FR-02, FR-05, FR-06, FR-10, BR-01, BR-02, BR-09",
         "stories": "US-03, US-04, US-05, US-07",
         "prompt": (
-            "Create 'pages/1_Operations.py'. Call ui.setup('Operations · HKD-2026'). Render sidebar filters and header. "
+            "Create 'pages/1_Operations.py'. Call ui.setup('Operations · p107'). Render sidebar filters and header. "
             "Implement tabs: 'Capacity & Bottlenecks', '7-Day Ward Forecast', 'OPD Volume & Trends'. "
             "Tab 1: Horizontal Plotly bar chart comparing department BOR against 85.0% target line; Cardiology highlighted in red (>85%). "
             "Show occupancy gap in percentage points and physical beds needed. Tab 2: 7-day forward ward occupancy forecast table and bar chart. "
@@ -383,9 +383,9 @@ VIVA_QUESTIONS = [
 # --------------------------------------------------------------------------- markdown generator
 def build_markdown():
     lines = []
-    lines.append("# HKD-2026 — Master Build Plan (BUILD_PLAN.md)")
+    lines.append("# p107 — Master Build Plan (BUILD_PLAN.md)")
     lines.append("")
-    lines.append("> **Project:** Healthcare KPI Dashboard (`HKD-2026`)  ")
+    lines.append("> **Project:** Healthcare KPI Dashboard (`p107`)  ")
     lines.append(f"> **Domain:** Clinical & Operational Data Analytics  ")
     lines.append(f"> **Student:** {STUDENT} (Roll: {ROLL}, MCA 2nd yr DA, ABES)  ")
     lines.append(f"> **Mentor:** Prof. {MENTOR}  ")
@@ -395,7 +395,7 @@ def build_markdown():
     lines.append("")
     lines.append("## 1. Project Summary & Deliverable Index")
     lines.append("")
-    lines.append("HKD-2026 is an enterprise-grade hospital operational analytics and clinical KPI dashboard designed for hospital executives, medical directors, and financial controllers.")
+    lines.append("p107 is an enterprise-grade hospital operational analytics and clinical KPI dashboard designed for hospital executives, medical directors, and financial controllers.")
     lines.append("The platform monitors inpatient throughput, bed occupancy, average length of stay (ALOS), 30-day unplanned readmissions, in-hospital mortality, and revenue per bed-day.")
     lines.append("Built on a verified synthetic warehouse of 53,915 inpatient episodes and 143,139 OPD visits across 8 clinical departments, 20 wards, and 5 payer categories.")
     lines.append("The analytical engine implements strict zero-division guards, closed-form Wilson score confidence intervals, and statistical process control drift detection.")
@@ -497,7 +497,7 @@ def build_markdown():
     lines.append("")
     lines.append("## 4. Definition of Done (DoD)")
     lines.append("")
-    lines.append("A task or release milestone in HKD-2026 is considered **DONE** if and only if all following criteria are met:")
+    lines.append("A task or release milestone in p107 is considered **DONE** if and only if all following criteria are met:")
     lines.append("1. **Requirements Coverage:** 100% of Must-have Business Requirements (`BR-01..07, 09, 13`) and Functional Requirements (`FR-01..22`) are implemented and validated.")
     lines.append("2. **Test Suite Execution:** All 51 Technical Tests (`TC-T-01..51`) and 46 Functional Tests (`TC-F-01..46`) pass with zero errors, zero failures, and zero unhandled skips.")
     lines.append("3. **Performance Latency:** Every application page renders in under 3.0 seconds warm-load time (`NFR-01`), verified by `TC-T-44`.")
@@ -740,7 +740,7 @@ def build_docx():
 
     # Section 1: Project Summary & Document Links
     h1(doc, "1. Project Summary & Document Traceability Index")
-    para(doc, "HKD-2026 is an enterprise-grade healthcare operational analytics and clinical intelligence dashboard designed "
+    para(doc, "p107 is an enterprise-grade healthcare operational analytics and clinical intelligence dashboard designed "
               "to empower hospital executives, clinical heads, and financial controllers with actionable decision-support tools. "
               "The platform monitors inpatient throughput, bed occupancy bottlenecks, average length of stay (ALOS), 30-day "
               "unplanned readmissions, in-hospital mortality, and revenue per bed-day across 8 clinical departments and 20 wards.")
@@ -837,7 +837,7 @@ def build_docx():
 
     # Section 4: Definition of Done
     h1(doc, "4. Definition of Done (DoD)", page_break=True)
-    para(doc, "A task or phase in the HKD-2026 build lifecycle is classified as complete if and only if all eight "
+    para(doc, "A task or phase in the p107 build lifecycle is classified as complete if and only if all eight "
               "contractual criteria are fulfilled without exemption:")
     bullet(doc, "1. Requirements Compliance: All Must-have Business Requirements (BR-01..07, 09, 13) and Functional Requirements (FR-01..22) implemented.")
     bullet(doc, "2. Test Suite Clearance: All 51 Technical Tests (TC-T-01..51) and 46 Functional Tests (TC-F-01..46) pass with 0 failures and 0 errors.")

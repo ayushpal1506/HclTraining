@@ -27,11 +27,11 @@ ALT_FILL = "EAF0F8"
 CALLOUT_FILL = "F2F6FC"
 OK_FILL = "E8F3EC"
 
-PROJECT_ID = "HKD-2026"
+PROJECT_ID = "p107"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
-ROLL = "2503201450035"
-MENTOR = "Kalpana Dwevedi"
+ROLL = "2500320140037"
+MENTOR = "Mr. Dinesh Sereno"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
@@ -214,9 +214,9 @@ def build_deployment_report():
     para(doc, f"Student: {STUDENT} (Roll: {ROLL})  ·  Mentor: Prof. {MENTOR}  ·  Institution: ABES Engineering College", size=9.5, italic=True)
     doc.add_paragraph()
 
-    callout(doc, "DEPLOYMENT SUMMARY: The Healthcare KPI Dashboard (HKD-2026) has completed all pre-flight audits "
+    callout(doc, "DEPLOYMENT SUMMARY: The Healthcare KPI Dashboard (p107) has completed all pre-flight audits "
                  "and is fully prepared for continuous deployment on Streamlit Community Cloud. "
-                 "The production target URL is https://2503201450035-hkd-2026.streamlit.app, linked to the primary "
+                 "The production target URL is https://2500320140037-p107.streamlit.app, linked to the primary "
                  "GitHub repository main branch. Memory utilization under peak cache load is approximately 240 MB, "
                  "operating with a 76% safety margin within the 1.0 GB container allocation. Zero secrets, credentials, "
                  "or absolute file paths exist in the codebase.")
@@ -252,7 +252,7 @@ git status
 git add app.py requirements.txt requirements-dev.txt .streamlit/ pages/ src/ data/ docs/ tests/ scripts/ README.md .gitignore
 
 # 3. Commit with academic release tag
-git commit -m "RELEASE: HKD-2026 Production Build Ready for Streamlit Cloud"
+git commit -m "RELEASE: p107 Production Build Ready for Streamlit Cloud"
 
 # 4. Push to remote main branch
 git push origin main""")
@@ -266,7 +266,7 @@ git push origin main""")
     bullet(doc, "   • Repository: <rollno>-hkd-2026 (or ayushpal/hclTraining)")
     bullet(doc, "   • Branch: main")
     bullet(doc, "   • Main file path: app.py")
-    bullet(doc, "   • App URL slug: 2503201450035-hkd-2026 (yielding https://2503201450035-hkd-2026.streamlit.app)")
+    bullet(doc, "   • App URL slug: 2500320140037-p107 (yielding https://2500320140037-p107.streamlit.app)")
     bullet(doc, "5. Click 'Deploy!'. The container builder initiates automatically.")
 
     h2(doc, "Stage 3: Cloud Build Lifecycle & Log Monitoring")
@@ -276,12 +276,12 @@ git push origin main""")
 [manager] Checking for requirements.txt...
 [pip] Installing collected packages: streamlit, pandas, numpy, plotly, scipy, statsmodels...
 [manager] Initializing Streamlit server...
-[manager] App is live at https://2503201450035-hkd-2026.streamlit.app!""")
+[manager] App is live at https://2500320140037-p107.streamlit.app!""")
 
     # Section 3: Cloud Container Resource & Memory Analysis
     h1(doc, "3. Cloud Container Resource & Memory Profile", page_break=True)
     para(doc, "Streamlit Community Cloud provides shared container allocations with strict operational limits. "
-              "The table below contrasts container quotas against HKD-2026's measured resource footprint:")
+              "The table below contrasts container quotas against p107's measured resource footprint:")
 
     res_rows = [
         ("Container Memory (RAM)", "1,024 MB (1.0 GB)", "240 MB peak (episodes + ward data cached)", "76.5% Safety Headroom"),
@@ -291,7 +291,7 @@ git push origin main""")
         ("Warm Page Load Time", "< 3.00 s budget (NFR-01)", "0.20 s – 0.48 s measured across 9 screens", "Exceeds performance SLA"),
         ("Network Ingress/Egress", "Standard HTTPS (Port 443)", "Encrypted SSL / TLS; Tailwind CDN cached", "Zero egress cost"),
     ]
-    add_table(doc, ["Resource Dimension", "Cloud Quota / Limit", "HKD-2026 Observed Utilization", "Operational Assessment"],
+    add_table(doc, ["Resource Dimension", "Cloud Quota / Limit", "p107 Observed Utilization", "Operational Assessment"],
               res_rows, [1.8, 1.8, 2.1, 1.2], total=6.9, font_size=8.0)
 
     # Section 4: Live Verification & Health Check Procedure
@@ -299,7 +299,7 @@ git push origin main""")
     para(doc, "Once the live URL is reported as green, execute the following 5-point post-deployment smoke test:")
 
     smoke_tests = [
-        ("ST-01", "Overview Navigation", "Load https://2503201450035-hkd-2026.streamlit.app", "Page renders in < 2 s; 6 KPI cards show 18,142 discharges, 73.2% BOR, ₹135.26 cr revenue"),
+        ("ST-01", "Overview Navigation", "Load https://2500320140037-p107.streamlit.app", "Page renders in < 2 s; 6 KPI cards show 18,142 discharges, 73.2% BOR, ₹135.26 cr revenue"),
         ("ST-02", "Multipage Navigation", "Click through all 8 pages in sidebar (Operations to Data)", "Every screen opens without uncaught exception or Python traceback (TC-F-38)"),
         ("ST-03", "Session State Filters", "Set Period = 2023; Department = Cardiology", "KPI band recomputes across pages; ward selector filters to W01–W04 only (TC-F-05)"),
         ("ST-04", "Empty State Handling", "Set Period = 2026", "Empty state message displays cleanly: 'No clinical episodes match...' (TC-T-46)"),

@@ -1,4 +1,4 @@
-"""Build Step 5 deliverable: Business Requirements Document (BRD) for HKD-2026."""
+"""Build Step 5 deliverable: Business Requirements Document (BRD) for p107."""
 import os
 from docx import Document
 from docx.shared import Pt, Inches, RGBColor
@@ -15,11 +15,11 @@ ALT_FILL = "EAF0F8"
 MUST_FILL = "DDEBF7"
 WONT_FILL = "F2F2F2"
 
-PROJECT_ID = "HKD-2026"
+PROJECT_ID = "p107"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
-ROLL = "2503201450035"
-MENTOR = "Kalpana Dwevedi"
+ROLL = "2500320140037"
+MENTOR = "Mr. Dinesh Sereno"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "docs", "05_BRD.docx")
 
@@ -220,7 +220,7 @@ para(doc, "Instruction to the project team: if a new requirement is introduced d
 
 # ---------------- 2 exec summary ----------------
 h1(doc, "2. Executive Summary", page_break=True)
-para(doc, "The Healthcare KPI Dashboard (HKD-2026) is an analytical decision-support product for a 300-bed, "
+para(doc, "The Healthcare KPI Dashboard (p107) is an analytical decision-support product for a 300-bed, "
           "eight-department multi-speciality hospital. It gives hospital leadership one consistent, "
           "self-service view of six operational indicators — bed occupancy, length of stay, 30-day "
           "readmissions, outpatient footfall, revenue per patient by payer, and mortality with discharge-type "

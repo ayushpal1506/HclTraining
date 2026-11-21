@@ -5,7 +5,7 @@ from docx.shared import Pt
 from lxml import etree
 import re
 
-doc = Document("docs/HKD-2026_Project_Document.docx")
+doc = Document("docs/p107_Project_Document.docx")
 
 WML = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 ns = {"w": WML}
@@ -115,7 +115,7 @@ for sec in expected:
 
 # 9. File size
 import os
-size = os.path.getsize("docs/HKD-2026_Project_Document.docx")
+size = os.path.getsize("docs/p107_Project_Document.docx")
 print(f"\n=== FILE SIZE: {size:,} bytes ===")
 
 # 10. Margin check

@@ -1,4 +1,4 @@
-"""HKD-2026 Hospital Finance, Billing & Payer Mix — Screen UI-05 (BUILD-11).
+"""p107 Hospital Finance, Billing & Payer Mix — Screen UI-05 (BUILD-11).
 
 Tracks payer market share transitions, revenue per discharged patient,
 and ranked revenue per occupied bed-day across clinical specialties (OQ-05, OQ-09).
@@ -13,7 +13,7 @@ import streamlit as st
 from src import data, filters, kpi, ui
 
 # 1. Page Configuration
-ui.setup("Finance · HKD-2026")
+ui.setup("Finance · p107")
 ui.enable_mobile()
 
 # 2. Data Loading & Sidebar

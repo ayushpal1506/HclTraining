@@ -427,7 +427,7 @@ def write_table(ws, start_row, headers, rows, widths, mono_cols=(), wrap_cols=()
 ws = wb.active
 ws.title = "1 Overview"
 ws.sheet_view.showGridLines = False
-sheet_title(ws, "HKD-2026  \u00b7  Database Design  \u00b7  v1.0  (19-Nov-2026)",
+sheet_title(ws, "p107  \u00b7  Database Design  \u00b7  v1.0  (19-Nov-2026)",
             "Five tables (3 masters + 2 facts), two analysis views and one derived KPI view. SQLite, read-only at runtime. "
             "IDs T-01\u2026T-05 are frozen; columns may only be added by change note.", 6)
 

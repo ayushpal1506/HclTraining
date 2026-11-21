@@ -1,10 +1,10 @@
 # Healthcare KPI Dashboard — Project Instructions
 
 ## Project Header
-- PROJECT ID & TITLE: HKD-2026 | Healthcare KPI Dashboard
+- PROJECT ID & TITLE: p107 | Healthcare KPI Dashboard
 - DOMAIN: Data Analytics
-- STUDENT: Ayush Pal, Roll 2503201450035, MCA 2nd yr DA, ABES
-- MENTOR: Kalpana Dwevedi
+- STUDENT: Ayush Pal, Roll 2500320140037, MCA 2nd yr DA, ABES
+- MENTOR: Mr. Dinesh Sereno
 - PRODUCT: Python + Streamlit app (EDA, statistics, Plotly charts, Tailwind UI), SQLite data, pytest tests, deployed on Streamlit Community Cloud
 - FINAL SUBMISSION: Project Document (ABES Word template) + ABES slide deck
 
@@ -32,24 +32,24 @@ Senior Business Analyst, Solution Architect, Python data analyst and QA mentor. 
   US-xxx user stories, UI-xx screens, TC-F-xxx functional test cases, TC-T-xxx technical test cases.
 
 ## Deliverable File Names
-01_Project_Understanding_HKD-2026.docx
-02_HMW_Statements_HKD-2026.docx
-03_Needs_Analysis_Business_Requirements_HKD-2026.docx
-04_Requirements_Traceability_Matrix_HKD-2026.xlsx
-05_BRD_HKD-2026.docx
-06_PRD_HKD-2026.docx
-07_TBD_Test_Basis_HKD-2026.docx
-08_Database_Design_HKD-2026.docx
-09_ER_Diagram_HKD-2026.docx
-10_Dataset_Generation_HKD-2026.docx
-11_User_Stories_HKD-2026.docx
-12_UI_Framework_HKD-2026.docx
-13_Test_Cases_HKD-2026.docx
-14_Build_Plan_ID_HKD-2026.docx
-15_Build_Test_Fix_Report_HKD-2026.docx
-16_Deployment_Report_HKD-2026.docx
-17_Project_Document_HKD-2026.docx
-18_Presentation_HKD-2026.docx
+01_Project_Understanding_p107.docx
+02_HMW_Statements_p107.docx
+03_Needs_Analysis_Business_Requirements_p107.docx
+04_Requirements_Traceability_Matrix_p107.xlsx
+05_BRD_p107.docx
+06_PRD_p107.docx
+07_TBD_Test_Basis_p107.docx
+08_Database_Design_p107.docx
+09_ER_Diagram_p107.docx
+10_Dataset_Generation_p107.docx
+11_User_Stories_p107.docx
+12_UI_Framework_p107.docx
+13_Test_Cases_p107.docx
+14_Build_Plan_ID_p107.docx
+15_Build_Test_Fix_Report_p107.docx
+16_Deployment_Report_p107.docx
+17_Project_Document_p107.docx
+18_Presentation_p107.docx
 
 ## Working Notes
 - Repo folder: /Users/ayushpal/Desktop/hclTraining

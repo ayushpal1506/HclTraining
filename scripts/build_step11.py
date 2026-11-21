@@ -21,11 +21,11 @@ HDR_FILL = "1F3864"
 ALT_FILL = "EAF0F8"
 CALLOUT_FILL = "F2F6FC"
 
-PROJECT_ID = "HKD-2026"
+PROJECT_ID = "p107"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
-ROLL = "2503201450035"
-MENTOR = "Kalpana Dwevedi"
+ROLL = "2500320140037"
+MENTOR = "Mr. Dinesh Sereno"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -457,7 +457,7 @@ rt.cell(row=2, column=1).value = ("v1.2  ·  19-Nov-2026  ·  Feature (F-01…F-
 
 # Coverage check additions
 cc = wb["Coverage Check"]
-cc.cell(row=1, column=1).value = "Coverage Check  ·  HKD-2026  ·  v1.2 (19-Nov-2026)"
+cc.cell(row=1, column=1).value = "Coverage Check  ·  p107  ·  v1.2 (19-Nov-2026)"
 r12 = None
 for r in range(4, 20):
     if cc.cell(row=r, column=1).value == "Rows still 'Identified'":

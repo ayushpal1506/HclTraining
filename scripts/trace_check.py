@@ -2,7 +2,7 @@
 from docx import Document
 import re
 
-doc = Document("docs/HKD-2026_Project_Document.docx")
+doc = Document("docs/p107_Project_Document.docx")
 
 # Collect all text
 all_text = ""

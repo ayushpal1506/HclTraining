@@ -1,4 +1,4 @@
-# HKD-2026 — Production Runtime Dependencies (Step 14/15)
+# p107 — Production Runtime Dependencies (Step 14/15)
 streamlit>=1.40.0
 pandas>=2.2.0
 numpy>=1.26.0

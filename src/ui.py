@@ -1,4 +1,4 @@
-"""HKD-2026 — Tailwind UI primitives (Step 12 starter).
+"""p107 — Tailwind UI primitives (Step 12 starter).
 
 Only the page header, the KPI cards, the filter chips, the insight boxes, the
 data-quality banner and the empty state are rendered through an iframe.
@@ -22,7 +22,7 @@ Usage
     import streamlit as st
     from src import ui
 
-    ui.setup("Operations · HKD-2026")          # st.set_page_config, once per page
+    ui.setup("Operations · p107")          # st.set_page_config, once per page
     ui.enable_mobile()                         # 375 px reflow (NFR-08)
     ui.header("Operations", "Capacity and demand · 2023–2025", as_of="31 Dec 2025")
     ui.kpi_row([
@@ -178,7 +178,7 @@ def header(title: str, subtitle: str = "", as_of: str | None = None,
            version: str = "v1.0") -> None:
     """Page header: title, subtitle, data-as-of chip and definition version."""
     LAST_RENDER.clear()
-    st.markdown(f'<span style="display:none">HKD-2026 data to {as_of} defs {version}</span>', unsafe_allow_html=True)
+    st.markdown(f'<span style="display:none">p107 data to {as_of} defs {version}</span>', unsafe_allow_html=True)
     if not USE_TAILWIND:
         st.title(title)
         if subtitle:

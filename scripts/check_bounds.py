@@ -2,7 +2,7 @@
 from pptx import Presentation
 from pptx.util import Inches
 
-prs = Presentation("docs/HKD-2026_Presentation.pptx")
+prs = Presentation("docs/p107_Presentation.pptx")
 
 for i, slide in enumerate(prs.slides, start=1):
     boxes = []

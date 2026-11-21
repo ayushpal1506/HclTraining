@@ -1,4 +1,4 @@
-"""HKD-2026 Definitions, KPI Registry & Governance — Screen UI-07 (BUILD-13).
+"""p107 Definitions, KPI Registry & Governance — Screen UI-07 (BUILD-13).
 
 Official metric definitions, clinical numerator/denominator formulas,
 governance standards, benchmarks, and data stewardship catalog (FR-16, BR-05, US-16).
@@ -11,7 +11,7 @@ import streamlit as st
 from src import data, filters, ui
 
 # 1. Page Configuration
-ui.setup("Definitions · HKD-2026")
+ui.setup("Definitions · p107")
 ui.enable_mobile()
 
 # 2. Data Loading & Sidebar

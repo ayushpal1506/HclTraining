@@ -18,11 +18,11 @@ HDR_FILL = "1F3864"
 ALT_FILL = "EAF0F8"
 CODE_FILL = "F4F6F8"
 
-PROJECT_ID = "HKD-2026"
+PROJECT_ID = "p107"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
-ROLL = "2503201450035"
-MENTOR = "Kalpana Dwevedi"
+ROLL = "2500320140037"
+MENTOR = "Mr. Dinesh Sereno"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
 OUT = os.path.join(DOCS, "09_ER_Diagram.docx")
@@ -425,7 +425,7 @@ add_table(doc, ["Metric", "Value", "Verified by"],
 
 # ---- 2 the diagram
 h1(doc, "2. The diagram", page_break=True)
-para(doc, "Figure 1 is the entity–relationship diagram for the HKD-2026 database. Each box is a table; each row "
+para(doc, "Figure 1 is the entity–relationship diagram for the p107 database. Each box is a table; each row "
           "inside a box is one column with its SQLite storage type; PK marks the primary key, FK a foreign key and "
           "UK a unique constraint. The lines carry the cardinality and a verb that reads as a sentence "
           "(see §2.2).", space_after=4)
@@ -434,7 +434,7 @@ pic_para = doc.add_paragraph()
 pic_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = pic_para.add_run()
 run.add_picture(PNG, width=Inches(6.0))
-cap = para(doc, "Figure 1 — Entity–relationship diagram, HKD-2026 (5 tables, 49 columns, 7 foreign keys). "
+cap = para(doc, "Figure 1 — Entity–relationship diagram, p107 (5 tables, 49 columns, 7 foreign keys). "
                 "The same PNG is saved as docs/09_ER_Diagram.png for full-resolution viewing.",
            9, italic=True, color=GREY, align=WD_ALIGN_PARAGRAPH.CENTER)
 

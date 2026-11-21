@@ -32,11 +32,11 @@ ALT_FILL = "EAF0F8"
 CALLOUT_FILL = "F2F6FC"
 OK_FILL = "E8F3EC"
 
-PROJECT_ID = "HKD-2026"
+PROJECT_ID = "p107"
 PROJECT_TITLE = "Healthcare KPI Dashboard"
 STUDENT = "Ayush Pal"
-ROLL = "2503201450035"
-MENTOR = "Kalpana Dwevedi"
+ROLL = "2500320140037"
+MENTOR = "Mr. Dinesh Sereno"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
@@ -643,7 +643,7 @@ rt.cell(row=2, column=1).value = (
 
 # Coverage Check -------------------------------------------------------------
 cc = wb["Coverage Check"]
-cc.cell(row=1, column=1).value = "Coverage Check  ·  HKD-2026  ·  v1.4 (19-Nov-2026)"
+cc.cell(row=1, column=1).value = "Coverage Check  ·  p107  ·  v1.4 (19-Nov-2026)"
 
 for r in range(1, 75):
     v = cc.cell(row=r, column=1).value

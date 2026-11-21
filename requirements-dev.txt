@@ -1,4 +1,4 @@
-# HKD-2026 — Development & Testing Dependencies (Step 14/15)
+# p107 — Development & Testing Dependencies (Step 14/15)
 -r requirements.txt
 pytest>=8.0.0
 pytest-mock

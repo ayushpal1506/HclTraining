@@ -1,4 +1,4 @@
-"""HKD-2026 Executive Overview Dashboard — Screen UI-01 (BUILD-07).
+"""p107 Executive Overview Dashboard — Screen UI-01 (BUILD-07).
 
 Six executive KPI numbers in one screenful, followed by key operational movements,
 data-quality summary strip, and deep-dive navigation links.
@@ -10,7 +10,7 @@ import streamlit as st
 from src import data, filters, kpi, ui
 
 # 1. Page Configuration
-ui.setup("Overview · HKD-2026")
+ui.setup("Overview · p107")
 ui.enable_mobile()
 
 # 2. Data Loading & Sidebar
@@ -170,4 +170,4 @@ with col_b:
     )
 
 st.markdown("---")
-st.caption("HKD-2026 Healthcare Operational Intelligence Dashboard · Verified against seed 42 synthetic warehouse.")
+st.caption("p107 Healthcare Operational Intelligence Dashboard · Verified against seed 42 synthetic warehouse.")

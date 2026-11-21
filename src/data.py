@@ -1,4 +1,4 @@
-"""HKD-2026 Data access, caching and filtering module (BUILD-02).
+"""p107 Data access, caching and filtering module (BUILD-02).
 
 Read-only interface to data/app.db.
 Provides @st.cache_data query functions and multi-dimensional cohort slicing.

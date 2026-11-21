@@ -1,4 +1,4 @@
-"""HKD-2026 Clinical Quality, Mortality & Drift Detection — Screen UI-04 (BUILD-10).
+"""p107 Clinical Quality, Mortality & Drift Detection — Screen UI-04 (BUILD-10).
 
 Monitors in-hospital mortality, statistical process control drift detection,
 and discharge disposition case-mix breakdowns (OQ-10, BR-13, US-13).
@@ -13,7 +13,7 @@ import streamlit as st
 from src import data, filters, kpi, stats, ui
 
 # 1. Page Configuration
-ui.setup("Quality · HKD-2026")
+ui.setup("Quality · p107")
 ui.enable_mobile()
 
 # 2. Data Loading & Sidebar

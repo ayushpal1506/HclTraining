@@ -1,12 +1,12 @@
-"""Build the Step 17 deliverable: docs/HKD-2026_Project_Document.docx.
+"""Build the Step 17 deliverable: docs/p107_Project_Document.docx.
 
 Strict ABES Project Document implementation adhering to all Screen 1-3 specifications:
 - Page setup: A4 portrait, 2 cm margins all around, 1.25 cm header/footer distance.
 - Base text: Calibri 10.5 pt, colour 151514, zero extra paragraph spacing.
 - Heading 1: Georgia 15 bold A51C30, before 16 pt, after 7 pt, keep_with_next.
 - Heading 2: Georgia 12 bold 151514, before 10 pt, after 5 pt, keep_with_next.
-- Header: right-aligned 8 pt 7F7F7F: "ABES Engineering College | Project Document | HKD-2026".
-- Footer: centered 8 pt 7F7F7F: "Ayush Pal | 2503201450035     Page <PAGE>".
+- Header: right-aligned 8 pt 7F7F7F: "ABES Engineering College | Project Document | p107".
+- Footer: centered 8 pt 7F7F7F: "Ayush Pal | 2500320140037     Page <PAGE>".
 - Tables: fixed width 9638 dxa, exact column dxa widths, border 0.5 pt BFBFBF,
   cell margins 60/90 dxa, header fill A51C30 white bold 9 pt, body 9 pt 151514.
   No blank line after table.
@@ -29,8 +29,9 @@ from docx.shared import Inches, Pt, RGBColor
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
-OUT_PRIMARY = DOCS / "HKD-2026_Project_Document.docx"
+OUT_PRIMARY = DOCS / "p107_Project_Document.docx"
 RESULTS_PATH = ROOT / "data" / "test_results.json"
+ABES_LOGO = ROOT / "assets" / "abes_logo.jpg"
 
 # Color constants
 C_CRIMSON = RGBColor(0xA5, 0x1C, 0x30)
@@ -294,24 +295,24 @@ def setup_header_and_footer(section):
     section.header_distance = Inches(1.25 / 2.54)
     section.footer_distance = Inches(1.25 / 2.54)
 
-    # Header: right, 8 pt 7F7F7F: ABES Engineering College | Project Document | HKD-2026
+    # Header: right, 8 pt 7F7F7F: ABES Engineering College | Project Document | p107
     hdr = section.header
     p_hdr = hdr.paragraphs[0]
     p_hdr.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     p_hdr.paragraph_format.space_before = Pt(0)
     p_hdr.paragraph_format.space_after = Pt(0)
-    r_hdr = p_hdr.add_run("ABES Engineering College | Project Document | HKD-2026")
+    r_hdr = p_hdr.add_run("ABES Engineering College | Project Document | p107")
     r_hdr.font.name = "Calibri"
     r_hdr.font.size = Pt(8)
     r_hdr.font.color.rgb = C_GREY
 
-    # Footer: centre, 8 pt 7F7F7F: Ayush Pal | 2503201450035     Page <PAGE>
+    # Footer: centre, 8 pt 7F7F7F: Ayush Pal | 2500320140037     Page <PAGE>
     ftr = section.footer
     p_ftr = ftr.paragraphs[0]
     p_ftr.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_ftr.paragraph_format.space_before = Pt(0)
     p_ftr.paragraph_format.space_after = Pt(0)
-    r_ftr = p_ftr.add_run("Ayush Pal | 2503201450035     Page ")
+    r_ftr = p_ftr.add_run("Ayush Pal | 2500320140037     Page ")
     r_ftr.font.name = "Calibri"
     r_ftr.font.size = Pt(8)
     r_ftr.font.color.rgb = C_GREY
@@ -368,14 +369,14 @@ def generate_document():
     r.font.bold = True
     r.font.color.rgb = C_CRIMSON
 
-    p = doc.add_paragraph()
-    p.paragraph_format.space_before = Pt(0)
-    p.paragraph_format.space_after = Pt(5)
-    r = p.add_run("[Insert ABES logo here]")
-    r.font.name = "Calibri"
-    r.font.size = Pt(9)
-    r.font.italic = True
-    r.font.color.rgb = C_GREY
+    # Insert ABES Logo
+    if ABES_LOGO.exists():
+        logo_para = doc.add_paragraph()
+        logo_para.paragraph_format.space_before = Pt(0)
+        logo_para.paragraph_format.space_after = Pt(8)
+        logo_para.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        logo_run = logo_para.add_run()
+        logo_run.add_picture(str(ABES_LOGO), width=Inches(1.1))
 
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(70)
@@ -402,7 +403,7 @@ def generate_document():
     pBdr.append(bottom_bdr)
     pPr.append(pBdr)
 
-    r = p.add_run("HKD-2026 - Healthcare KPI Dashboard")
+    r = p.add_run("p107 - Healthcare KPI Dashboard")
     r.font.name = "Georgia"
     r.font.size = Pt(18)
     r.font.color.rgb = C_CRIMSON
@@ -417,13 +418,13 @@ def generate_document():
 
     # Cover Table: Field 2900 | Details 6738
     cover_table_rows = [
-        ["Project ID & Title", "HKD-2026 — Healthcare KPI Dashboard"],
+        ["Project ID & Title", "p107 — Healthcare KPI Dashboard"],
         ["Domain", "Data Analytics & Clinical Operations"],
-        ["Programme / Batch", "MCA 2nd Year Data Analyst - ABES_OND26_MCA Batch 01"],
-        ["Learner(s) & Roll No(s)", "Ayush Pal (Roll: 2503201450035)"],
-        ["Mentor", "Prof. Kalpana Dwevedi"],
+        ["Programme / Batch", "ABES_OND26_MCA 2nd Year_Data Analytics_Batch 01"],
+        ["Learner(s) & Roll No(s)", "Ayush Pal (Roll: 2500320140037)"],
+        ["Mentor", "Mr. Dinesh Sereno"],
         ["GitHub repository", "https://github.com/ayushpal/hclTraining"],
-        ["Live app (Streamlit)", "https://2503201450035-hkd-2026.streamlit.app"],
+        ["Live app (Streamlit)", "https://2500320140037-p107.streamlit.app"],
         ["Version & date", "v1.0 - 19/11/2026"],
     ]
     add_abes_table(doc, ["Field", "Details"], cover_table_rows, [2900, 6738])
@@ -490,7 +491,7 @@ def generate_document():
     # =========================================================================
     p_h1(doc, "1. Project Description")
     desc_rows = [
-        ["Overview", "HKD-2026 is an enterprise healthcare operational analytics platform providing executive, clinical, and financial decision-makers with unified visibility into acute bed occupancy bottlenecks, average length of stay (ALOS), 30-day readmissions, and financial yield."],
+        ["Overview", "p107 is an enterprise healthcare operational analytics platform providing executive, clinical, and financial decision-makers with unified visibility into acute bed occupancy bottlenecks, average length of stay (ALOS), 30-day readmissions, and financial yield."],
         ["Problem statement", "Tertiary hospital administrators lack low-latency, integrated visibility across clinical throughput, bed bottlenecks, readmission risks, and specialty profitability to manage capacity and safety."],
         ["Intended users", "Hospital CEO/COO (strategic throughput), Operations Director (daily bed census & ward transfers), Medical Superintendent (clinical ALOS pathway compliance), Clinical Quality Head (readmissions & mortality drift), and CFO (payer yield & billing)."],
         ["In scope", "Inpatient episodes (53,915 episodes) and OPD visits (143,139 visits) across 2023–2025; 8 clinical departments; 20 wards; 5 payer categories; SQLite analytical data store; Plotly visualizations; Tailwind UI iframe integration; Streamlit Community Cloud hosting."],
@@ -705,7 +706,7 @@ def generate_document():
     arch_rows = [
         ["1. Local", "python -m venv .venv && pip install -r requirements.txt && streamlit run app.py", "Local dev server opens at http://localhost:8501 with 0 errors"],
         ["2. GitHub", "git add . && git commit -m 'RELEASE' && git push origin main", "Repository main branch updated; automated test CI passes green"],
-        ["3. Streamlit Community Cloud", "Deploy app via share.streamlit.io targeting main branch and app.py", "App live globally at https://2503201450035-hkd-2026.streamlit.app"],
+        ["3. Streamlit Community Cloud", "Deploy app via share.streamlit.io targeting main branch and app.py", "App live globally at https://2500320140037-p107.streamlit.app"],
     ]
     add_abes_table(doc, ["Stage", "Command / action", "Done when"], arch_rows, [2200, 4838, 2600])
 
@@ -867,11 +868,11 @@ CREATE TABLE fact_opd_visit (
     p_h1(doc, "Appendix A - Prompt to generate this document")
 
     p_label(doc, "MY PREFERENCES", color=C_CRIMSON)
-    prefs_code = """PROJECT ID & TITLE: HKD-2026 | Healthcare KPI Dashboard
+    prefs_code = """PROJECT ID & TITLE: p107 | Healthcare KPI Dashboard
 DOMAIN: Data Analytics & Clinical Operations
-LEARNER(S) & ROLL NO(S): Ayush Pal, Roll 2503201450035, MCA 2nd yr DA, ABES
-MENTOR: Prof. Kalpana Dwevedi
-BATCH: ABES_OND26_MCA Batch 01
+LEARNER(S) & ROLL NO(S): Ayush Pal, Roll 2500320140037, MCA 2nd yr DA, ABES
+MENTOR: Mr. Dinesh Sereno
+BATCH: ABES_OND26_MCA 2nd Year_Data Analytics_Batch 01
 INTENDED USERS: Hospital CEO, Operations Director, Medical Superintendent, Clinical Quality Head, CFO
 PROBLEM IN MY WORDS: Hospital leadership lacks unified, low-latency visibility across acute bed occupancy bottlenecks, ALOS delays, 30-day readmissions, and specialty revenue yield.
 DATASET: Synthetic SQLite warehouse (data/app.db, seed 42) with 53,915 inpatient episodes and 143,139 OPD visits across 2023–2025.
@@ -884,8 +885,8 @@ TEAM SIZE & DEADLINE: Individual project (Ayush Pal), November 2026 final submis
     p_label(doc, "INSTRUCTIONS FOR THE AI", color=C_CRIMSON, before=10)
     kickoff_code = """You are my senior Business Analyst, Solution Architect, Python data analyst and QA mentor. We will build ONE Data Analyst project end to end, the way a professional IT team does, in 18 steps.
 
-PROJECT: HKD-2026 | DOMAIN: Data Analytics
-ME: Ayush Pal, Roll 2503201450035, MCA 2nd yr DA, ABES | MENTOR: Prof. Kalpana Dwevedi
+PROJECT: p107 | DOMAIN: Data Analytics
+ME: Ayush Pal, Roll 2500320140037, MCA 2nd yr DA, ABES | MENTOR: Mr. Dinesh Sereno
 PRODUCT: Python + Streamlit app (EDA, statistics, Plotly charts, Tailwind UI), SQLite data, pytest tests, on Streamlit Community Cloud.
 FINAL SUBMISSION: Project Document (ABES Word template) + ABES slide deck.
 
@@ -917,7 +918,7 @@ RULES for this whole chat:
     print("Saved Primary ABES Project Document:", OUT_PRIMARY)
 
     # Secondary copy
-    out_sec = DOCS / "17_Project_Document_HKD-2026.docx"
+    out_sec = DOCS / "17_Project_Document_p107.docx"
     shutil.copyfile(OUT_PRIMARY, out_sec)
     print("Saved Secondary Archive Copy:", out_sec)
 
